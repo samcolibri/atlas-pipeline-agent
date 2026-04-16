@@ -119,12 +119,12 @@ FORGE emits: "REPLY_DETECTED"
   → CORTEX subscribes: classifies sentiment, decides next action
   → VITALS subscribes: updates pipeline stage
   → COMMAND subscribes: logs for reporting
-  → If positive → CORTEX emits: "HOT_LEAD_ALERT" → Slack notification to rep
+  → If positive → CORTEX emits: "HOT_LEAD_ALERT" → Teams notification to rep
 
 VITALS emits: "STALE_OPP_DETECTED"
   → CORTEX subscribes: decides re-engagement vs alert
   → If re-engageable → PHOENIX subscribes: queues for recovery sequence
-  → If needs human → emits: "REP_ACTION_REQUIRED" → Slack alert
+  → If needs human → emits: "REP_ACTION_REQUIRED" → Teams alert
 
 SENTINEL emits: "DUPLICATE_DETECTED"
   → CORTEX subscribes: merge records, update all agent states
@@ -448,7 +448,7 @@ Day 5: First ATLAS-generated email lands in a real prospect's inbox.
 | AI engine | Claude API (Opus for complex reasoning, Sonnet for bulk generation) | Ready |
 | State management | SQLite (upgrade to Postgres if/when multi-tenant) | Ready |
 | Scheduling | Cron / systemd timer | Ready |
-| Monitoring | Slack webhooks | Ready |
+| Monitoring | Microsoft Teams webhooks | Ready |
 | Version control | github.com/samcolibri/atlas-pipeline-agent | **Live** |
 
 ### The First Commit That Matters

@@ -70,7 +70,7 @@ All numbers below come directly from Nader Rustom's Q2 analysis and Amy Ketts' s
 | **Gong** | API access (when deployed in FS) | Call transcript analysis, coaching signals, competitive intelligence | Phase 4 (post-HC deployment) |
 | **Ironclad** | API access | Contract status tracking, approval bottleneck monitoring | Q3-Q4 2026 |
 | **LinkedIn Sales Navigator** | API or browser automation | Contact enrichment, social signals, InMail integration | Phase 3 |
-| **Slack** | Webhook URL for FS sales channel | Real-time alerts to reps (hot replies, stale deal warnings, daily digest) | Phase 1 (nice-to-have) |
+| **Microsoft Teams** | Webhook URL for FS sales channel | Real-time alerts to reps (hot replies, stale deal warnings, daily digest) | Phase 1 (nice-to-have) |
 
 ### Infrastructure
 
@@ -81,7 +81,7 @@ All numbers below come directly from Nader Rustom's Q2 analysis and Amy Ketts' s
 | Scheduler | Cron or systemd timer | $0 | Daily/hourly agent runs |
 | Hosting | Local or lightweight VPS | $0–20/mo | Can run on any machine with API access |
 | Database | SQLite or PostgreSQL | $0 | Agent state, sequence tracking, A/B test results |
-| Monitoring | Slack webhooks + log files | $0 | Agent health, error alerting |
+| Monitoring | Teams webhooks + log files | $0 | Agent health, error alerting |
 | **Total new spend** | | **$0–58/month** | |
 
 ---
@@ -122,7 +122,7 @@ All numbers below come directly from Nader Rustom's Q2 analysis and Amy Ketts' s
 │     │   sequences, schedule sends                    │
 │     ├── Salesforce: log activities, update statuses, │
 │     │   create tasks for reps                        │
-│     └── Slack: alert reps on hot signals             │
+│     └── Teams: alert reps on hot signals              │
 │                                                      │
 │  5. LEARN                                            │
 │     ├── Track reply rates per persona/segment        │
@@ -193,7 +193,7 @@ Week  1  2  3  4  5  6  7  8  9  10  11  12
 | Week | Build | Test | Deploy |
 |------|-------|------|--------|
 | **1** | Salesforce API connection + data model. Pull all closed-lost opps (GRC, 2 yrs). Pull all stale leads/opps. Map data schema. | Validate data quality — confirm $5.5M closed-lost figure, verify loss reasons exist, identify gaps in data. | — |
-| **2** | PHOENIX agent: Claude-powered loss-reason segmentation. Generate re-engagement copy for 3 segments (Contract Timing, Budget Deferred, Platform). SENTINEL: stale lead/opp detection logic. | Human review of 20 generated emails per segment. Verify segmentation accuracy against manual spot-checks. Test stale detection thresholds (8-day / 14-day). | Stale alerts go live (Slack/email to reps). Low risk — it's just notifications. |
+| **2** | PHOENIX agent: Claude-powered loss-reason segmentation. Generate re-engagement copy for 3 segments (Contract Timing, Budget Deferred, Platform). SENTINEL: stale lead/opp detection logic. | Human review of 20 generated emails per segment. Verify segmentation accuracy against manual spot-checks. Test stale detection thresholds (8-day / 14-day). | Stale alerts go live (Teams/email to reps). Low risk — it's just notifications. |
 | **3** | Outreach API connection. Sequence creation automation. Prospect enrollment pipeline. | Enroll first batch of 50 closed-lost prospects manually reviewed. Monitor deliverability, open rates, reply rates. | PHOENIX pilot batch live — first re-engagement emails sending. |
 | **4** | PHOENIX at scale: full closed-lost pool enrolled. Monitoring dashboard. Reply classification (positive/negative/objection). | Track first replies. Validate classification accuracy. Measure against 15-20% reply rate target. | PHOENIX fully live. SENTINEL alerts fully live. **First pipeline movement visible.** |
 
@@ -269,7 +269,7 @@ Week  1  2  3  4  5  6  7  8  9  10  11  12
 | **Parallel agent development** | PHOENIX (Weeks 1-4) and SCOUT/RECON (Weeks 3-6) overlap. While closed-lost is running, net new engine is being built. | 3-4 weeks compressed |
 | **Outreach API, not manual sequence building** | Sequences created programmatically. No clicking through UI to build 3 persona variants x multiple A/B tests. | Hours per sequence saved |
 | **SQLite for state, not a full database deployment** | Zero infrastructure setup. Agent state stored locally. Upgrade to Postgres only if/when needed. | Days of DevOps eliminated |
-| **Slack webhooks for alerts, not a custom dashboard** | Reps already live in Slack/Teams. Alerts go where attention already is. Dashboard comes in Phase 3. | 1-2 weeks of UI development skipped |
+| **Teams webhooks for alerts, not a custom dashboard** | Reps already live in Microsoft Teams. Alerts go where attention already is. Dashboard comes in Phase 3. | 1-2 weeks of UI development skipped |
 
 ### Better
 
@@ -345,7 +345,7 @@ Week  1  2  3  4  5  6  7  8  9  10  11  12
 | 1 | Salesforce API credentials (connected app or OAuth) for FS org | SF Admin / Angel | None |
 | 2 | Outreach API key + confirm Research Agent availability on current contract tier | Amy Ketts | None |
 | 3 | 6sense API access or export configuration for intent-ranked account lists | Marketing / 6sense admin | None |
-| 4 | Confirm Slack channel for rep alerts (or Teams webhook if preferred) | Nathan Paldrmann | None |
+| 4 | Confirm Microsoft Teams channel for rep alerts + webhook setup | Nathan Paldrmann | None |
 | 5 | Export of closed-lost opportunities (GRC, last 2 years) with loss reason field | Amy Ketts / SF Admin | None |
 | 6 | Confirm buyer persona definitions with Nathan (compliance, HR/L&D, operations) | Nader + Nathan | None |
 

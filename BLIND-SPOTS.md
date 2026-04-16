@@ -101,7 +101,7 @@ This returns every field, every picklist value, every record type. Map the ATLAS
 ### What to do:
 - Before Phase 2 (outreach engine) goes live, create a simple **"ATLAS Meeting Prep Kit"**
 - RECON already generates the account brief — include a discovery question guide tailored to the persona
-- Make this part of the Slack alert: "Meeting with Sarah Johnson. Here's the brief + recommended discovery questions + one-pager attached."
+- Make this part of the Teams alert: "Meeting with Sarah Johnson. Here's the brief + recommended discovery questions + one-pager attached."
 
 ---
 
@@ -185,7 +185,7 @@ INBOUND (form submission) — 4 steps over 10 days:
    - Create prospects with test email addresses
 3. **6sense** — Read-only, so production is fine for testing
 4. **Claude** — No risk, it's a generation engine
-5. **Slack** — Use a `#atlas-testing` channel, not the real sales channel
+5. **Microsoft Teams** — Use an "ATLAS Testing" channel in Teams, not the real sales channel
 
 ### Testing checklist before going to production:
 - [ ] All Salesforce queries return expected data shapes
@@ -322,7 +322,7 @@ MINUTE 4-6: AI RESEARCH + OUTREACH (RECON + FORGE)
 MINUTE 6-8: PIPELINE HEALTH (VITALS)
   Show the stale opp scan:
   "Here are 8 deals with $680K in value that haven't been touched 
-  in 2+ weeks. ATLAS caught these at 6 AM. The reps got Slack 
+  in 2+ weeks. ATLAS caught these at 6 AM. The reps got Teams 
   alerts before they started their day."
 
 MINUTE 8-10: THE ASK
@@ -391,7 +391,7 @@ These edge cases need to be designed into the agent logic BEFORE go-live, not di
 | Claude API (160 accounts × research + emails + classification) | $50-100/mo | Sonnet for bulk, Haiku for classification |
 | Relay.app (if used for 6sense→Outreach orchestration) | $0-38/mo | Free tier may suffice |
 | Hosting (if we move off local to a VPS) | $0-20/mo | Only needed for 24/7 uptime |
-| Slack (already have it) | $0 | Using existing workspace |
+| Microsoft Teams (already have it) | $0 | Using existing workspace |
 | Salesforce API (already licensed) | $0 | Included with enterprise license |
 | Outreach API (already licensed — need to confirm) | $0 | May need tier upgrade at renewal |
 | 6sense API (already licensed — need to confirm) | $0 | May be an add-on |
@@ -445,7 +445,7 @@ Everything above, compressed into what needs to happen before ATLAS goes live:
 - [ ] 50 AI-generated emails reviewed and approved by Nader
 - [ ] Sequence cadence defined (steps, timing, channels)
 - [ ] Rep prep kit created (discovery framework, talk tracks, one-pager)
-- [ ] Slack alerts tested in #atlas-testing channel
+- [ ] Teams alerts tested in ATLAS Testing channel
 - [ ] Kill switch tested (pause → verify all activity stops)
 - [ ] Sequence collision rules implemented and tested
 - [ ] Demo prepared for leadership (10-minute script)

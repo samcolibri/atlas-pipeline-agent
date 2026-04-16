@@ -12,7 +12,7 @@
 3. [Get Outreach API Access](#3-get-outreach-api-access)
 4. [Get 6sense API Access](#4-get-6sense-api-access)
 5. [Get Claude API Access](#5-get-claude-api-access)
-6. [Get Slack Webhook](#6-get-slack-webhook)
+6. [Get Microsoft Teams Webhook](#6-get-microsoft-teams-webhook)
 7. [Set Up the Agent Environment](#7-set-up-the-agent-environment)
 8. [Wire It All Together](#8-wire-it-all-together)
 9. [The Agent Running Live — Step by Step](#9-the-agent-running-live--step-by-step)
@@ -47,7 +47,7 @@ ATLAS needs to talk to 5 systems. Here's what each one does and why we need it:
               ┌─────────────┼─────────────┐
               │                           │
        ┌──────┴───────┐           ┌──────┴───────┐
-       │   CLAUDE AI   │           │    SLACK     │
+       │   CLAUDE AI   │           │    TEAMS     │
        │              │           │              │
        │  The brain   │           │  Where reps  │
        │  that writes │           │  get alerts  │
@@ -65,7 +65,7 @@ ATLAS needs to talk to 5 systems. Here's what each one does and why we need it:
 | **Outreach** | Sequence performance, reply notifications, prospect status | Create prospects, create/update sequences, enroll in sequences, schedule sends | REST API (OAuth 2.0) |
 | **6sense** | Intent scores, "In-Market" accounts, buying stage, firmographic data | Nothing (read-only) | REST API (API Key) |
 | **Claude** | Nothing (we send, it responds) | Research prompts, email generation prompts, classification prompts | REST API (API Key) |
-| **Slack** | Nothing | Alert messages to reps (hot leads, stale opps, weekly digest) | Webhook (URL) |
+| **Microsoft Teams** | Nothing | Alert messages to reps (hot leads, stale opps, weekly digest) | Webhook (URL) |
 
 ---
 
@@ -601,7 +601,7 @@ Response:
 }
 
 → In <1 second, CORTEX classified the reply and recommended next action
-→ This triggers an immediate Slack alert to Luke:
+→ This triggers an immediate Teams alert to Luke:
 → "🔥 HOT REPLY: Sarah Johnson @ First National Bank — POSITIVE. 
 →  She's evaluating options and wants a one-pager for her VP of Ops. 
 →  Send it NOW and follow up in 2 days."
@@ -609,71 +609,64 @@ Response:
 
 ---
 
-## 6. Get Slack Webhook
+## 6. Get Microsoft Teams Webhook
 
 ### Who Can Do This
-Anyone with permission to add apps to the FS sales Slack channel.
+Anyone who owns or manages the FS sales channel in Microsoft Teams.
 
 ### Step-by-Step Instructions
 
-#### Step 1: Create a Slack Webhook
-1. Go to `api.slack.com/apps`
-2. Click **Create New App** → **From scratch**
-3. Name: `ATLAS Pipeline Agent`
-4. Pick your Colibri workspace
-5. Click **Create App**
-
-#### Step 2: Enable Incoming Webhooks
-1. In the left sidebar, click **Incoming Webhooks**
-2. Toggle **Activate Incoming Webhooks** to ON
-3. Click **Add New Webhook to Workspace**
-4. Select the channel (e.g., `#fs-sales-pipeline` or `#atlas-alerts`)
-5. Click **Allow**
-6. Copy the **Webhook URL**
+#### Step 1: Set Up an Incoming Webhook in Teams
+1. Open **Microsoft Teams**
+2. Go to the channel where you want alerts (e.g., "FS Sales Pipeline")
+3. Click the **"..."** next to the channel name → **"Manage channel"**
+4. Click **"Connectors"** (or in newer Teams: go to channel settings → **Workflows** → **Incoming Webhook**)
+5. Find **"Incoming Webhook"** → click **"Configure"**
+6. Name it: `ATLAS Pipeline Agent`
+7. Optionally upload an icon
+8. Click **"Create"**
+9. Copy the **Webhook URL** (format: `https://xxxxx.webhook.office.com/webhookb2/...`)
 
 ```
 Example (not real):
-https://hooks.slack.com/services/T024BE7LD/B08XXXXXXX/xxxxxxxxxxxxxxxxxxx
+https://colibri.webhook.office.com/webhookb2/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx@xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/IncomingWebhook/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 ```
 
-#### What We Do With the Slack Webhook
+#### What We Do With the Teams Webhook
 
 ```
-POST https://hooks.slack.com/services/T024BE7LD/B08.../xxx...
+POST https://colibri.webhook.office.com/webhookb2/.../IncomingWebhook/...
 
 Body:
 {
-  "blocks": [
-    {
-      "type": "header",
-      "text": { "type": "plain_text", "text": "🔥 Hot Reply — First National Bank" }
-    },
-    {
-      "type": "section",
-      "text": {
-        "type": "mrkdwn",
-        "text": "*Sarah Johnson* (Chief Compliance Officer) replied to Luke's outreach:\n\n> _\"Thanks for reaching out. We're evaluating options. Can you send a one-pager?\"_\n\n*Classification:* POSITIVE (92% confidence)\n*Buying Signal:* Active evaluation in progress\n*Next Action:* Send one-pager NOW, follow up in 2 days\n*Account Value:* Est. $75K (GRC Enterprise)"
-      }
-    },
-    {
-      "type": "actions",
-      "elements": [
-        {
-          "type": "button",
-          "text": { "type": "plain_text", "text": "View in Salesforce" },
-          "url": "https://colibri.my.salesforce.com/001..."
-        },
-        {
-          "type": "button",
-          "text": { "type": "plain_text", "text": "View in Outreach" },
-          "url": "https://app.outreach.io/prospects/12345"
-        }
-      ]
-    }
-  ]
+  "@type": "MessageCard",
+  "@context": "http://schema.org/extensions",
+  "themeColor": "FF0000",
+  "summary": "Hot Reply — First National Bank",
+  "sections": [{
+    "activityTitle": "🔥 Hot Reply — First National Bank",
+    "facts": [
+      { "name": "From", "value": "Sarah Johnson (Chief Compliance Officer)" },
+      { "name": "Classification", "value": "POSITIVE (92% confidence)" },
+      { "name": "Buying Signal", "value": "Active evaluation in progress" },
+      { "name": "Next Action", "value": "Send one-pager NOW, follow up in 2 days" },
+      { "name": "Account Value", "value": "Est. $75K (GRC Enterprise)" }
+    ],
+    "text": "\"Thanks for reaching out. We're evaluating options. Can you send a one-pager?\""
+  }],
+  "potentialAction": [{
+    "@type": "OpenUri",
+    "name": "View in Salesforce",
+    "targets": [{ "os": "default", "uri": "https://colibri.my.salesforce.com/001..." }]
+  },
+  {
+    "@type": "OpenUri",
+    "name": "View in Outreach",
+    "targets": [{ "os": "default", "uri": "https://app.outreach.io/prospects/12345" }]
+  }]
 }
 
-→ Luke gets this in Slack instantly when Sarah replies
+→ Luke gets this in Teams instantly when Sarah replies
 → He has everything he needs: what she said, what to do next, links to act
 → No manual checking of Outreach for replies
 ```
@@ -703,7 +696,7 @@ source .venv/bin/activate
 # 3. Install dependencies
 pip install anthropic        # Claude API
 pip install simple-salesforce # Salesforce API
-pip install requests         # HTTP requests (Outreach, 6sense, Slack)
+pip install requests         # HTTP requests (Outreach, 6sense, Teams)
 pip install python-dotenv    # Environment variables
 pip install schedule         # Task scheduling
 pip install sqlite-utils     # Local database
@@ -730,8 +723,8 @@ SIXSENSE_API_KEY=your_api_key_here
 # Claude
 ANTHROPIC_API_KEY=sk-ant-api03-your_key_here
 
-# Slack
-SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxx/xxx/xxx
+# Microsoft Teams
+TEAMS_WEBHOOK_URL=https://xxxxx.webhook.office.com/webhookb2/xxx/IncomingWebhook/xxx/xxx
 
 # Agent Config
 ATLAS_MODE=review          # 'review' = human gate, 'auto' = fully autonomous
@@ -772,7 +765,7 @@ atlas-pipeline-agent/
 │   │   ├── outreach.py           ← Outreach REST API wrapper
 │   │   ├── sixsense.py           ← 6sense API wrapper
 │   │   ├── claude.py             ← Anthropic API wrapper
-│   │   └── slack.py              ← Slack webhook wrapper
+│   │   └── teams.py              ← Microsoft Teams webhook wrapper
 │   │
 │   ├── models/                   ← Data models
 │   │   ├── account.py            ← Account object
@@ -912,21 +905,27 @@ def test_claude():
     print(f"✅ Claude connected. Test generation:")
     print(f"   {message.content[0].text}")
 
-def test_slack():
-    """Test: Can we send a Slack alert?"""
+def test_teams():
+    """Test: Can we send a Teams alert?"""
     import requests
     
     resp = requests.post(
-        os.getenv('SLACK_WEBHOOK_URL'),
+        os.getenv('TEAMS_WEBHOOK_URL'),
         json={
-            "text": "✅ ATLAS Pipeline Agent connected successfully. Test alert."
+            "@type": "MessageCard",
+            "@context": "http://schema.org/extensions",
+            "summary": "ATLAS Test",
+            "sections": [{
+                "activityTitle": "✅ ATLAS Pipeline Agent connected successfully",
+                "text": "Test alert from ATLAS. If you see this, Teams integration is working."
+            }]
         }
     )
     
     if resp.status_code == 200:
-        print(f"✅ Slack connected. Check your channel for the test message.")
+        print(f"✅ Teams connected. Check your channel for the test message.")
     else:
-        print(f"❌ Slack failed: {resp.status_code}")
+        print(f"❌ Teams failed: {resp.status_code}")
 
 if __name__ == '__main__':
     print("=" * 60)
@@ -954,9 +953,9 @@ if __name__ == '__main__':
     except Exception as e: print(f"❌ Claude error: {e}")
     print()
     
-    print("5. Testing Slack...")
-    try: test_slack()
-    except Exception as e: print(f"❌ Slack error: {e}")
+    print("5. Testing Microsoft Teams...")
+    try: test_teams()
+    except Exception as e: print(f"❌ Teams error: {e}")
     print()
     
     print("=" * 60)
@@ -998,8 +997,8 @@ ATLAS CONNECTION TEST
    spreadsheets and tribal knowledge that wouldn't survive a single 
    examiner's follow-up question.
 
-5. Testing Slack...
-✅ Slack connected. Check your channel for the test message.
+5. Testing Microsoft Teams...
+✅ Teams connected. Check your channel for the test message.
 
 ============================================================
 CONNECTION TEST COMPLETE
@@ -1130,7 +1129,7 @@ STEP 4: FORGE — Writing Personalized Outreach
   │  ATLAS_MODE = "review"                              │
   │                                                     │
   │  All 27 emails are queued for Nader's review.       │
-  │  Slack notification sent:                           │
+  │  Teams notification sent:                           │
   │                                                     │
   │  "📋 ATLAS Daily Batch Ready for Review             │
   │   27 accounts, 54 email variants generated          │
@@ -1192,14 +1191,14 @@ STEP 6: VITALS — Pipeline Health Check (Runs in parallel)
     ⚠ Jennifer Walsh (Commerce Bank) — last activity: 9 days ago
     ⚠ Robert Kim (Valley Federal) — last activity: 11 days ago
     ... (12 more) ...
-    → Slack alerts sent to assigned reps
+    → Teams alerts sent to assigned reps
     
   [06:03:10] Scanning for stale opportunities...
   [06:03:15] Found 8 opps with no activity in 14+ days:
     🔴 $85K — Heritage Financial Group — 23 days inactive (AE: Scott)
     🔴 $62K — Mountain State Bank — 18 days inactive (AE: Nathan)
     ... (6 more) ...
-    → Slack alerts sent to AEs + managers
+    → Teams alerts sent to AEs + managers
     → Tasks created in Salesforce
     
   [06:03:20] Pipeline health summary:
@@ -1261,7 +1260,7 @@ STEP 8: MONITOR — Reply Detection (Every 30 minutes)
     → Next action: Send one-pager, follow up in 2 days
     → Urgency: HIGH
     
-  [13:30:06] Slack alert sent to Luke Pearson:
+  [13:30:06] Teams alert sent to Luke Pearson:
     "🔥 HOT REPLY: Sarah Johnson @ First National Bank
      She's evaluating options and wants a one-pager for VP Ops.
      SEND NOW → follow up Thursday."
@@ -1282,7 +1281,7 @@ STEP 8: MONITOR — Reply Detection (Every 30 minutes)
 
 ═══════════════════════════════════════════════════════════
 
-  END OF DAY SUMMARY (sent to Slack at 6:00 PM ET)
+  END OF DAY SUMMARY (sent to Teams at 6:00 PM ET)
 
   ┌─────────────────────────────────────────────────────┐
   │  📊 ATLAS Daily Report — April 17, 2026             │
@@ -1330,7 +1329,7 @@ STEP 8: MONITOR — Reply Detection (Every 30 minutes)
 | **6:03 AM** | RECON | Generate research briefs for all new targets |
 | **6:06 AM** | FORGE | Generate personalized email sequences |
 | **6:06 AM** | VITALS | Scan for stale leads and opps, send alerts |
-| **6:10 AM** | CORTEX | Package review batch, send to Slack for human approval |
+| **6:10 AM** | CORTEX | Package review batch, send to Teams for human approval |
 | **9:00 AM** | HUMAN | Nader reviews and approves batch (~15-20 min) |
 | **9:15 AM** | FORGE | Execute approved sends via Outreach |
 | **Every 30 min** | CORTEX | Check for replies, classify, alert reps |
@@ -1388,7 +1387,7 @@ The agent runs a self-check every morning before executing:
   ✅ Outreach API: connected (response: 89ms)
   ✅ 6sense API: connected (response: 203ms)
   ✅ Claude API: connected (response: 312ms)
-  ✅ Slack webhook: connected (response: 67ms)
+  ✅ Teams webhook: connected (response: 67ms)
   ✅ SQLite database: 2.3MB, 847 records
   ✅ Daily send limit: 25 (3 used today)
   ✅ Last run: successful (April 16, 06:00 AM)
@@ -1400,11 +1399,11 @@ The agent runs a self-check every morning before executing:
 
 | Problem | What Happens | Auto-Recovery |
 |---------|-------------|---------------|
-| Salesforce API down | Agent logs error, retries in 30 min, alerts Slack | Yes — retries 3x then pauses |
+| Salesforce API down | Agent logs error, retries in 30 min, alerts Teams | Yes — retries 3x then pauses |
 | Outreach API down | Emails queued locally, sent when API recovers | Yes — queue persists |
 | 6sense API down | Uses last successful pull (cached) | Yes — cache valid 24 hours |
 | Claude API down | Uses pre-generated templates as fallback | Yes — template mode |
-| Slack down | Alerts sent via email backup | Yes — email fallback |
+| Teams down | Alerts sent via email backup | Yes — email fallback |
 | Agent crashes | Systemd restarts automatically, logs preserved | Yes — auto-restart |
 | Daily limit reached | Agent stops sending, resumes next day | Yes — hard cap |
 | Bad data detected | Agent quarantines record, alerts human | Yes — quarantine |
@@ -1418,7 +1417,7 @@ At any point, anyone can stop the agent:
 echo "ATLAS_MODE=paused" >> .env
 # Agent will complete current operation then pause
 
-# Or from Slack:
+# Or from Teams:
 # Type: /atlas pause
 # Agent responds: "⏸️ ATLAS paused. No further sends until resumed."
 
@@ -1461,7 +1460,7 @@ grep "REPLY" logs/atlas_2026-04-17.log
 | Outreach Refresh Token | Same as above | Amy Ketts authorizes |
 | 6sense API Key | Settings → Integrations → API | Marketing / 6sense admin |
 | Claude API Key | console.anthropic.com → API Keys | Sam (already have) |
-| Slack Webhook URL | api.slack.com → Create App → Webhooks | Anyone with Slack admin |
+| Teams Webhook URL | Teams channel → Connectors → Incoming Webhook | Anyone with Teams channel access |
 
 **Total setup time once credentials are provided: ~30 minutes.**
 **Total setup time including credential requests: 1-3 days (waiting on admins).**

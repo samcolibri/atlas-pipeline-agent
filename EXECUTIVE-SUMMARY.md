@@ -102,7 +102,7 @@ That's it. No new hires. No new tools. No new budget.
              Agent logs all activity to Salesforce
              
   All day    Agent monitors for replies every 30 minutes
-             Hot replies → instant Slack alert to the assigned rep
+             Hot replies → instant Teams alert to the assigned rep
              
   6:00 PM    Daily summary sent to leadership
 ```
