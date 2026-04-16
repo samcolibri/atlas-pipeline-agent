@@ -10,6 +10,15 @@ node_modules/
 .venv/
 venv/
 
+# Data exports
+data/
+
+# Logs
+logs/
+
+# Database
+*.db
+
 # OS
 .DS_Store
 Thumbs.db
