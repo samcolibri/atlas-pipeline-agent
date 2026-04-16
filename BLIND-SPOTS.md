@@ -58,30 +58,7 @@ This returns every field, every picklist value, every record type. Map the ATLAS
 
 ---
 
-## 3. The Nader Relationship Needs to Be Handled Carefully
-
-**The political reality:** Nader Rustom wrote the analysis, proposed the sprints, and is positioned as the primary executor. Sam is now building an autonomous agent that does much of what Nader proposed — but faster, automated, and at scale.
-
-### The risk:
-- Nader could feel bypassed or replaced
-- If Nader isn't bought in, he becomes a blocker (he has relationships with Amy, Nathan, Molly)
-- Nader's ground-level knowledge of the accounts, the reps, the tool quirks is irreplaceable — we need his input, not just his data
-
-### The move:
-**Position ATLAS as Nader's force multiplier, not his replacement.**
-
-- Nader designed the strategy → ATLAS executes it at scale
-- Nader knows the personas, the triggers, the messaging angles → ATLAS encodes his expertise into the system
-- Nader spent hours manually building sequences → ATLAS gives him those hours back to focus on strategy and optimization
-- Nader reviews the agent's output → he's the human gate, the quality bar, the expert in the loop
-
-**The framing to Nader:** "You identified $8.4M in at-risk pipeline and designed the fix. This agent is your strategy running 24/7. You stay in control — you review everything before it sends, you set the personas, you define the triggers. The agent just does the manual work at API speed so you can focus on the parts that actually need a human brain."
-
-**The framing to Molly/Scott:** "ATLAS is the execution engine for Nader's sprint plan. It automates the data pull, research, and content generation — Nader retains oversight on quality and strategy."
-
----
-
-## 4. Rep Preparedness — What Happens When Replies Come In
+## 3. Rep Preparedness — What Happens When Replies Come In
 
 **The gap:** ATLAS generates outreach and detects replies. But when Sarah Johnson at First National Bank says "sure, let's talk" — is Luke actually ready for that conversation?
 
@@ -105,7 +82,7 @@ This returns every field, every picklist value, every record type. Map the ATLAS
 
 ---
 
-## 5. Multi-Threading — One Contact Per Account Isn't Enough
+## 4. Multi-Threading — One Contact Per Account Isn't Enough
 
 **The documents say it clearly:** Buying committees have grown to 6-10 stakeholders. Our current design targets one contact per account (the primary persona match).
 
@@ -134,7 +111,7 @@ This is Phase 2+ complexity, but it should be designed into the architecture now
 
 ---
 
-## 6. Sequence Cadence Design — We Haven't Defined the Actual Steps
+## 5. Sequence Cadence Design — We Haven't Defined the Actual Steps
 
 **The gap:** We've talked about generating "personalized sequences" but haven't defined what a sequence actually looks like. How many steps? What channels? What timing?
 
@@ -173,7 +150,7 @@ INBOUND (form submission) — 4 steps over 10 days:
 
 ---
 
-## 7. Sandbox Testing — Don't Touch Production on Day 1
+## 6. Sandbox Testing — Don't Touch Production on Day 1
 
 **The risk:** If we connect ATLAS directly to production Salesforce + production Outreach and something goes wrong — bad data writes, duplicate records, accidental mass emails — it's live and visible to everyone.
 
@@ -200,7 +177,7 @@ INBOUND (form submission) — 4 steps over 10 days:
 
 ---
 
-## 8. Legal & Compliance — CAN-SPAM and FS-Specific Requirements
+## 7. Legal & Compliance — CAN-SPAM and FS-Specific Requirements
 
 **The overlooked risk:** We're automating outreach to people at banks and financial institutions. These are heavily regulated entities with strict vendor communication policies.
 
@@ -221,7 +198,7 @@ Quick conversation with Molly or Colibri legal: "We're automating B2B outreach u
 
 ---
 
-## 9. Attribution — How We PROVE ATLAS Generated Revenue
+## 8. Attribution — How We PROVE ATLAS Generated Revenue
 
 **The problem:** If ATLAS sends an email, the prospect replies, Luke has a meeting, and the deal closes 4 months later — how do we prove ATLAS was the cause?
 
@@ -258,7 +235,7 @@ Opportunity:
 
 ---
 
-## 10. The Outreach Renewal (May 5) — Timing Pressure
+## 9. The Outreach Renewal (May 5) — Timing Pressure
 
 **The overlooked urgency:** Outreach renewal is $42,270.72/yr and due May 5, 2026. That's 19 days from now.
 
@@ -275,7 +252,7 @@ Opportunity:
 
 ---
 
-## 11. What If 6sense Intent Data Isn't Good?
+## 10. What If 6sense Intent Data Isn't Good?
 
 **The assumption we're betting on:** 6sense intent signals accurately identify companies that are ready to buy GRC solutions. Our entire SCOUT agent depends on this.
 
@@ -293,7 +270,7 @@ Don't go all-in on 6sense until we've validated the signal quality with real out
 
 ---
 
-## 12. The Demo for Leadership — What Does Day 1 Look Like?
+## 11. The Demo for Leadership — What Does Day 1 Look Like?
 
 **Nobody has planned the demo.** At some point, Sam or Nader will need to show Molly, Scott, and Nathan what ATLAS actually does. This is make-or-break for continued support.
 
@@ -334,7 +311,7 @@ MINUTE 8-10: THE ASK
 
 ---
 
-## 13. Handling Sequence Collisions
+## 12. Handling Sequence Collisions
 
 **The gap:** What if a prospect is already in a manually-created Outreach sequence when ATLAS tries to enroll them in a new one?
 
@@ -363,7 +340,7 @@ BEFORE enrolling any prospect in an Outreach sequence:
 
 ---
 
-## 14. What Happens When the Agent Finds Something Unexpected?
+## 13. What Happens When the Agent Finds Something Unexpected?
 
 **Real scenarios that WILL happen:**
 
@@ -380,7 +357,7 @@ These edge cases need to be designed into the agent logic BEFORE go-live, not di
 
 ---
 
-## 15. The Budget Conversation — What This Actually Costs to Run
+## 14. The Budget Conversation — What This Actually Costs to Run
 
 **Everyone assumes "near-zero cost" but let's be precise:**
 
