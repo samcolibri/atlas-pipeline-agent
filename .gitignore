@@ -1,5 +1,10 @@
-# Confidential docs (PDFs contain CONFIDENTIAL Colibri data)
+# Confidential docs — stay local, never push to GitHub
 docs/*.pdf
+docs/ocl-brain/*.pdf
+docs/ocl-brain/*.docx
+docs/ocl-brain/*.pptx
+docs/ocl-brain/2026 Research Reports/
+docs/ocl-brain/OCL Case Studies/
 
 # Environment
 .env

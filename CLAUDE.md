@@ -118,6 +118,26 @@ Every 30m   → CORTEX checks for replies, classifies, alerts rep
 4. `BLIND-SPOTS.md` — 14 gaps to address before go-live
 5. `VISION.md` — Product thesis, event-driven architecture, learning engine
 6. `EXECUTIVE-SUMMARY.md` — C-suite pitch (read for tone/framing)
+7. `6SENSE.md` — 6sense API setup, 2 exact API calls, brand-mixing risk
+
+## Agent Brain (OCL Source Intelligence)
+**Path:** `docs/ocl-brain/`
+**Index:** `docs/ocl-brain/BRAIN.md` ← READ THIS FIRST
+
+The brain contains verified Colibri/OCL sales intelligence that RECON and FORGE MUST use:
+- **Buyer Personas** — 3 ICP personas with pain points, fears, motivations
+- **FS ICP Mapping** — real sales leader input on who to target (Session 1 data)
+- **OCL 5Ps by ICP** — positioning matrix per persona
+- **POV Email Templates** — the exact email framework FORGE follows
+- **Case Studies** — Citadel CU, Martha's Vineyard Bank, Security First Bank
+- **2026 Research Reports** — Gartner CHRO priorities, HR Trends, HRCI State of HR
+- **StoryBrand Scripts** — OCL's narrative framework
+- **Sales Sheets** — bank vs non-bank versions
+
+RECON reads personas + ICP mapping + market reports → outputs research brief
+FORGE reads POV templates + StoryBrand + case studies → outputs cold email
+
+Brain files are local only (gitignored). `BRAIN.md` is the committed index.
 
 ## Building an Agent
 When building any agent module, follow this pattern:
