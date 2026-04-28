@@ -57,6 +57,10 @@ class Config:
     AIRTABLE_CASES_TABLE     = os.getenv("AIRTABLE_CASES_TABLE",     "Case_Studies")
     AIRTABLE_TRIGGERS_TABLE  = os.getenv("AIRTABLE_TRIGGERS_TABLE",  "Triggers")
     AIRTABLE_OUTREACH_TABLE  = os.getenv("AIRTABLE_OUTREACH_TABLE",  "Outreach_Log")
+    AIRTABLE_KNOWLEDGE_TABLE = "Knowledge_Base"
+    AIRTABLE_AB_TABLE        = "AB_Results"
+    AIRTABLE_SIGNALS_TABLE   = "Learned_Signals"
+    AIRTABLE_ENRICH_TABLE    = "Enrichment_Queue"
 
     # Agent behavior
     ATLAS_MODE = os.getenv("ATLAS_MODE", "review")  # "review" | "auto" | "shadow" | "paused"
