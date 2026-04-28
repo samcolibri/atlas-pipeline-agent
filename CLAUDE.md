@@ -6,6 +6,7 @@ ATLAS is an autonomous Tier 3 sales pipeline agent for Colibri Group's Financial
 **Repo:** https://github.com/samcolibri/atlas-pipeline-agent
 **Deploy:** Railway (Dockerfile + railway.toml)
 **Runtime:** Python 3.11 + Flask health server + scheduled agent loop
+**Agent Molly (Airtable):** https://airtable.com/appwlGCHBaRef70gO — account universe, contacts, ICP personas, email templates, case studies, triggers, outreach log (request access from Sam)
 
 ## The 9 Agents
 | Agent | File | Purpose | Status |
