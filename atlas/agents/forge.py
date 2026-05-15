@@ -20,7 +20,15 @@ Usage:
 
 from dataclasses import dataclass
 from typing import Optional
-from atlas.agents.recon import ReconBrief, TARGET_TITLES
+from atlas.agents.recon import ReconBrief
+from atlas.icp import CTA_VARIANTS, COMPLIANCE_TITLES, HR_TITLES, L_AND_D_TITLES
+
+# Compliance-first priority order — P1 → P2 → P3
+TARGET_TITLES = (
+    COMPLIANCE_TITLES[:6]   # CCO, VP Compliance, BSA Officer…
+    + HR_TITLES[:4]          # CHRO, Chief People Officer…
+    + L_AND_D_TITLES[:3]     # L&D Director, Training Director…
+)
 
 
 # ── Case studies ──────────────────────────────────────────────────────────────
@@ -177,28 +185,23 @@ class ForgeAgent:
         return f"{brief.name}'s {hook}"
 
     def _build_body(self, brief: ReconBrief, angle: dict, cs: dict) -> str:
-        first_name = "[First Name]"
-        sender = "Sam"
+        # Alternate A/B deterministically by domain (so same account always gets same variant)
+        variant_key = "A" if sum(ord(c) for c in brief.domain) % 2 == 0 else "B"
+        cta = CTA_VARIANTS[variant_key]
 
-        # Line 1: trigger observation (specific to this company)
         line1 = (
-            f"Hi {first_name},\n\n"
+            f"Hi [First Name],\n\n"
             f"{brief.name}'s {angle['trigger']} likely means "
             f"{angle['complexity'].replace('{employee_count}', brief.employee_count)}."
         )
 
-        # Line 2: the risk
-        line2 = (
-            f"That creates {angle['risk']}."
-        )
+        line2 = f"That creates {angle['risk']}."
 
-        # Line 3: proof
         line3 = (
             f"We helped {cs['company']} — {cs['detail']} — who {cs['challenge']}. "
             f"They {cs['outcome']}."
         )
 
-        # Line 4: CTA
-        line4 = "Worth a quick conversation?\n\nBest,\n" + sender
+        line4 = f"{cta}\n\nSam"
 
         return "\n\n".join([line1, line2, line3, line4])
