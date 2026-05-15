@@ -3,815 +3,860 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ATLAS — Full Agentic Pipeline</title>
+<title>ATLAS v2 — World-Class Autonomous Outbound Architecture</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#07090f;--surf:#0d1117;--surf2:#161b22;--surf3:#1c2333;
-  --bdr:#21262d;--text:#c9d1d9;--muted:#6e7681;--head:#e6edf3;
-  --green:#00e676;--gdim:#00e67618;
-  --blue:#58a6ff;--bdim:#58a6ff18;
-  --orange:#ffa040;--odim:#ffa04018;
-  --red:#ff4566;--rdim:#ff456618;
-  --purple:#c084fc;--pdim:#c084fc18;
-  --teal:#2dd4bf;--tdim:#2dd4bf18;
-  --yellow:#fbbf24;--ydim:#fbbf2418;
-  --pink:#f472b6;--pkdim:#f472b618;
+  --bg:#060810;--surf:#0d1117;--surf2:#111722;--surf3:#1a2030;--surf4:#1f2840;
+  --bdr:#1e2535;--bdr2:#2a3450;--text:#c9d1d9;--muted:#6e7681;--head:#e6edf3;
+  --green:#00e676;--gdim:#00e67614;--gbright:#00ff88;
+  --blue:#58a6ff;--bdim:#58a6ff14;
+  --orange:#ffa040;--odim:#ffa04014;
+  --red:#ff4566;--rdim:#ff456614;
+  --purple:#c084fc;--pdim:#c084fc14;
+  --teal:#2dd4bf;--tdim:#2dd4bf14;
+  --yellow:#fbbf24;--ydim:#fbbf2414;
+  --pink:#f472b6;--pkdim:#f472b614;
+  --cyan:#22d3ee;--cdim:#22d3ee14;
+  --lime:#a3e635;--ldim:#a3e63514;
 }
-body{font-family:'SF Mono','Fira Code',ui-monospace,monospace;background:var(--bg);color:var(--text);font-size:12px;padding:32px 28px;min-height:100vh}
+body{font-family:'SF Mono','Fira Code',ui-monospace,monospace;background:var(--bg);color:var(--text);font-size:12px;padding:32px 32px 80px;min-height:100vh}
+
+/* ─── Typography ─── */
+h1{font-size:26px;color:var(--head);font-weight:900;letter-spacing:.3px;line-height:1.2}
+h2{font-size:11px;color:var(--muted);letter-spacing:2.5px;text-transform:uppercase;font-weight:700}
+h3{font-size:13px;color:var(--head);font-weight:800}
 
 /* ─── Page header ─── */
-.page-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:40px;padding-bottom:20px;border-bottom:1px solid var(--bdr)}
-.page-hdr h1{font-size:24px;color:var(--head);font-weight:800;letter-spacing:.5px}
-.page-hdr p{font-size:11px;color:var(--muted);margin-top:4px}
-.pill{background:var(--green);color:#050a0e;font-size:9px;font-weight:900;padding:3px 9px;border-radius:3px;letter-spacing:2.5px;display:inline-block;margin-bottom:8px}
-.pill-shadow{background:var(--surf3);color:var(--muted);font-size:9px;font-weight:700;padding:3px 9px;border-radius:3px;letter-spacing:2px;display:inline-block;margin-left:8px}
-.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:10px;color:var(--muted)}
-.leg{display:flex;align-items:center;gap:5px}
-.leg-dot{width:8px;height:8px;border-radius:50%}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:48px;padding-bottom:24px;border-bottom:1px solid var(--bdr)}
+.hdr-l{max-width:700px}
+.pill{display:inline-block;font-size:9px;font-weight:900;padding:3px 10px;border-radius:3px;letter-spacing:2.5px;margin-right:6px;margin-bottom:8px}
+.pill.green{background:var(--green);color:#030608}
+.pill.dim{background:var(--surf3);color:var(--muted)}
+.pill.orange{background:var(--odim);color:var(--orange);border:1px solid var(--orange)30}
+.hdr p{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.7;max-width:600px}
+.vs-strip{background:var(--surf2);border:1px solid var(--bdr);border-radius:8px;padding:14px 18px;font-size:10px;min-width:320px}
+.vs-title{font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.vs-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--bdr);font-size:10px}
+.vs-row:last-child{border-bottom:none}
+.vs-label{color:var(--red)}
+.vs-win{color:var(--green);font-weight:700}
 
 /* ─── Section label ─── */
-.sec-label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.sec-label::before{content:'';width:3px;height:10px;border-radius:2px;flex-shrink:0}
-.sec-label.blue::before{background:var(--blue)}
-.sec-label.orange::before{background:var(--orange)}
-.sec-label.purple::before{background:var(--purple)}
-.sec-label.green::before{background:var(--green)}
-.sec-label.yellow::before{background:var(--yellow)}
-.sec-label.teal::before{background:var(--teal)}
-.sec-label.red::before{background:var(--red)}
-.sec-label.pink::before{background:var(--pink)}
+.sl{font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;color:var(--muted)}
+.sl::before{content:'';width:3px;height:9px;border-radius:2px;flex-shrink:0}
+.sl.g::before{background:var(--green)} .sl.b::before{background:var(--blue)}
+.sl.o::before{background:var(--orange)} .sl.p::before{background:var(--purple)}
+.sl.r::before{background:var(--red)} .sl.t::before{background:var(--teal)}
+.sl.y::before{background:var(--yellow)} .sl.pk::before{background:var(--pink)}
+.sl.c::before{background:var(--cyan)} .sl.l::before{background:var(--lime)}
 
-/* ─── Main pipeline wrapper ─── */
-.pipeline-wrap{display:flex;flex-direction:column;gap:0;max-width:1200px;margin:0 auto}
+/* ─── Main content wrapper ─── */
+.wrap{max-width:1300px;margin:0 auto}
 
-/* ─── Stage row ─── */
-.stage-row{display:grid;grid-template-columns:180px 1fr;gap:0;margin-bottom:0}
+/* ─── Two-col pipeline layout ─── */
+.pipe-row{display:grid;grid-template-columns:200px 1fr;gap:0;margin-bottom:0}
+.pipe-left{border-right:2px solid var(--bdr);padding:28px 22px 28px 0;display:flex;flex-direction:column;align-items:flex-end;gap:3px;position:relative}
+.pipe-left::after{content:'';position:absolute;right:-5px;top:30px;width:8px;height:8px;border-radius:50%;border:2px solid var(--bdr);background:var(--bg)}
+.pipe-num{font-size:10px;color:var(--muted);letter-spacing:1px}
+.pipe-name{font-size:17px;font-weight:900;letter-spacing:1.5px;text-align:right}
+.pipe-sub{font-size:10px;color:var(--muted);text-align:right;line-height:1.6;margin-top:2px}
+.pipe-right{padding:28px 0 28px 32px;border-bottom:1px solid #ffffff06}
 
-/* ─── Stage label col ─── */
-.stage-label{border-right:2px solid var(--bdr);padding:24px 20px 24px 0;display:flex;flex-direction:column;align-items:flex-end;gap:4px;position:relative}
-.stage-label .num{font-size:10px;color:var(--muted);letter-spacing:1px}
-.stage-label .name{font-size:16px;font-weight:900;letter-spacing:1.5px;text-align:right}
-.stage-label .sub{font-size:10px;color:var(--muted);text-align:right;line-height:1.5;margin-top:2px}
-/* connector dot on the border */
-.stage-label::after{content:'';position:absolute;right:-5px;top:32px;width:8px;height:8px;border-radius:50%;border:2px solid var(--bdr);background:var(--bg)}
+/* ─── Connector between stages ─── */
+.connector{display:grid;grid-template-columns:200px 1fr;gap:0}
+.conn-left{border-right:2px solid var(--bdr);min-height:28px}
+.conn-right{padding:8px 0 8px 32px;font-size:9px;color:var(--muted);letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.conn-right::before{content:'↓';font-size:14px;color:var(--bdr2)}
 
-/* ─── Stage content col ─── */
-.stage-content{padding:24px 0 24px 28px;border-bottom:1px solid #ffffff08}
+/* ─── Cards ─── */
+.cards{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.card{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px;flex:1;min-width:170px}
+.card.md{min-width:220px;max-width:300px}
+.card.lg{min-width:300px;max-width:420px}
+.card.xl{min-width:100%;flex:100}
+.card-top{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.card-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.card-title{font-size:12px;font-weight:800;color:var(--head);letter-spacing:.3px}
+.card-sub{font-size:10px;color:var(--muted);margin-top:1px}
+.sr{display:flex;justify-content:space-between;align-items:flex-start;padding:4px 0;border-bottom:1px solid #ffffff05;font-size:10px;gap:8px}
+.sr:last-child{border-bottom:none}
+.sr-l{color:var(--muted);flex-shrink:0}
+.sr-v{font-weight:700;text-align:right}
+.sr-v.g{color:var(--green)}.sr-v.b{color:var(--blue)}.sr-v.o{color:var(--orange)}
+.sr-v.p{color:var(--purple)}.sr-v.r{color:var(--red)}.sr-v.t{color:var(--teal)}
+.sr-v.y{color:var(--yellow)}.sr-v.pk{color:var(--pink)}.sr-v.c{color:var(--cyan)}
+.sr-v.l{color:var(--lime)}.sr-v.dim{color:var(--muted);font-weight:400}
 
-/* ─── Cards row within stage ─── */
-.cards{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
-
-/* ─── Individual card ─── */
-.card{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px;min-width:180px;flex:1;max-width:280px}
-.card.wide{max-width:380px;flex:2}
-.card.full{max-width:100%;flex:100}
-.card-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.card-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.card-title{font-size:12px;font-weight:800;color:var(--head);letter-spacing:.5px}
-.card-sub{font-size:10px;color:var(--muted);margin-top:2px}
-
-/* ─── Stat rows ─── */
-.stat-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #ffffff06;font-size:10px}
-.stat-row:last-child{border-bottom:none}
-.stat-label{color:var(--muted)}
-.stat-val{font-weight:700}
-.stat-val.green{color:var(--green)}
-.stat-val.blue{color:var(--blue)}
-.stat-val.orange{color:var(--orange)}
-.stat-val.purple{color:var(--purple)}
-.stat-val.red{color:var(--red)}
-.stat-val.teal{color:var(--teal)}
-.stat-val.yellow{color:var(--yellow)}
-.stat-val.pink{color:var(--pink)}
-
-/* ─── Tag pills ─── */
+/* ─── Tags ─── */
 .tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-.tag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;letter-spacing:.5px}
-.tag.blue{background:var(--bdim);color:var(--blue)}
-.tag.green{background:var(--gdim);color:var(--green)}
-.tag.orange{background:var(--odim);color:var(--orange)}
-.tag.purple{background:var(--pdim);color:var(--purple)}
-.tag.red{background:var(--rdim);color:var(--red)}
-.tag.teal{background:var(--tdim);color:var(--teal)}
-.tag.yellow{background:var(--ydim);color:var(--yellow)}
-.tag.pink{background:var(--pkdim);color:var(--pink)}
-.tag.dim{background:var(--surf3);color:var(--muted)}
+.tag{font-size:9px;font-weight:800;padding:2px 7px;border-radius:3px;letter-spacing:.5px}
+.tag.g{background:var(--gdim);color:var(--green)}.tag.b{background:var(--bdim);color:var(--blue)}
+.tag.o{background:var(--odim);color:var(--orange)}.tag.r{background:var(--rdim);color:var(--red)}
+.tag.p{background:var(--pdim);color:var(--purple)}.tag.t{background:var(--tdim);color:var(--teal)}
+.tag.y{background:var(--ydim);color:var(--yellow)}.tag.dim{background:var(--surf3);color:var(--muted)}
+.tag.pk{background:var(--pkdim);color:var(--pink)}.tag.c{background:var(--cdim);color:var(--cyan)}
+.tag.l{background:var(--ldim);color:var(--lime)}
 
-/* ─── Flow arrow between stages ─── */
-.flow-arrow{grid-column:2;padding:0 0 0 28px;display:flex;align-items:center;gap:10px;color:var(--muted);font-size:10px;letter-spacing:1px;margin:0;padding-top:4px;padding-bottom:4px}
-.flow-arrow::before{content:'↓';font-size:16px;color:var(--bdr);margin-right:6px}
-.flow-arrow-wrap{display:grid;grid-template-columns:180px 1fr;gap:0}
-.arrow-left{border-right:2px solid var(--bdr);padding:0 0 0 0;min-height:24px;position:relative}
+/* ─── Output strip ─── */
+.out{background:var(--surf2);border:1px solid var(--bdr);border-radius:6px;padding:10px 14px;margin-top:12px;font-size:10px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.out strong{color:var(--head)}
+.out span{color:var(--muted)}
+code{background:var(--surf3);padding:1px 6px;border-radius:3px;color:var(--green);font-size:10px;font-family:inherit}
 
-/* ─── Output badge ─── */
-.output-strip{background:var(--surf2);border:1px solid var(--bdr);border-radius:6px;padding:10px 14px;margin-top:10px;font-size:10px}
-.output-strip strong{color:var(--head);margin-right:6px}
-.output-strip span{color:var(--muted)}
-.output-strip code{background:var(--surf3);padding:1px 5px;border-radius:3px;color:var(--green);font-size:10px}
+/* ─── Inline sub-grid ─── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+.grid4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-top:10px}
+.sub-box{background:var(--surf2);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;font-size:10px}
+.sub-box .sub-title{font-weight:800;margin-bottom:6px}
+
+/* ─── Learning loop highlight ─── */
+.learn-box{background:var(--surf2);border:1px solid var(--green)30;border-radius:10px;padding:18px 20px;margin-top:12px}
+.learn-title{font-size:12px;font-weight:800;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.learn-row{display:flex;align-items:flex-start;gap:10px;padding:5px 0;border-bottom:1px solid #ffffff06;font-size:10px}
+.learn-row:last-child{border-bottom:none}
+.learn-icon{flex-shrink:0;width:18px;text-align:center}
+.learn-text{color:var(--muted);line-height:1.6}
+.learn-val{color:var(--green);font-weight:700}
 
 /* ─── Gate box ─── */
-.gate{background:var(--surf);border:1px solid var(--yellow);border-radius:8px;padding:12px 16px;margin-top:10px}
-.gate-title{font-size:11px;font-weight:800;color:var(--yellow);margin-bottom:6px;display:flex;align-items:center;gap:6px}
-.gate-rule{font-size:10px;color:var(--muted);padding:2px 0;display:flex;align-items:flex-start;gap:6px}
-.gate-rule::before{content:'✗';color:var(--red);flex-shrink:0}
+.gate{background:var(--surf);border:1px solid var(--red)40;border-radius:8px;padding:12px 16px;margin-top:10px}
+.gate-title{font-size:11px;font-weight:800;color:var(--red);margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.gate-rule{font-size:10px;color:var(--muted);padding:3px 0;display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+.gate-rule::before{content:'⛔';flex-shrink:0;font-size:9px}
 
-/* ─── API table ─── */
-.api-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:10px}
-.api-table th{color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;padding:6px 10px;border-bottom:1px solid var(--bdr);text-align:left}
-.api-table td{padding:7px 10px;border-bottom:1px solid #ffffff06;vertical-align:top}
-.api-table tr:last-child td{border-bottom:none}
-.api-table td:first-child{color:var(--head);font-weight:700}
-.api-table td:nth-child(2){color:var(--muted)}
-.badge{display:inline-block;font-size:8px;font-weight:800;padding:2px 6px;border-radius:3px;letter-spacing:1px}
-.badge.live{background:#00e67620;color:var(--green)}
-.badge.free{background:#58a6ff20;color:var(--blue)}
-.badge.pending{background:#ffa04020;color:var(--orange)}
-.badge.blocked{background:#ff456620;color:var(--red)}
+/* ─── Confidence meter ─── */
+.conf-track{background:var(--surf3);border-radius:4px;height:8px;margin-top:6px;overflow:hidden}
+.conf-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--red),var(--yellow),var(--green))}
 
-/* ─── Financial model ─── */
-.fin-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:10px}
-.fin-cell{background:var(--surf);border:1px solid var(--bdr);border-radius:6px;padding:12px 14px}
-.fin-num{font-size:22px;font-weight:900;color:var(--green);margin-bottom:2px}
-.fin-label{font-size:10px;color:var(--muted)}
-.fin-arrow{display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--bdr)}
+/* ─── Contact waterfall ─── */
+.waterfall{display:flex;flex-direction:column;gap:0;margin-top:10px}
+.wf-step{display:flex;align-items:stretch;gap:0;font-size:10px}
+.wf-num{width:24px;flex-shrink:0;display:flex;flex-direction:column;align-items:center}
+.wf-dot{width:10px;height:10px;border-radius:50%;border:2px solid;flex-shrink:0;margin-top:5px}
+.wf-line{flex:1;width:2px;background:var(--bdr2);margin:0 auto}
+.wf-content{flex:1;padding:0 0 16px 12px}
+.wf-label{font-weight:800;margin-bottom:3px}
+.wf-desc{color:var(--muted);line-height:1.5}
+.wf-if-miss{font-size:9px;color:var(--muted);margin-top:3px;font-style:italic}
+
+/* ─── Signal priority table ─── */
+.sig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.sig-box{background:var(--surf2);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;font-size:10px;position:relative;overflow:hidden}
+.sig-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+.sig-box.hot::before{background:var(--red)}
+.sig-box.warm::before{background:var(--orange)}
+.sig-box.cold::before{background:var(--blue)}
+.sig-type{font-size:8px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.sig-box.hot .sig-type{color:var(--red)}
+.sig-box.warm .sig-type{color:var(--orange)}
+.sig-box.cold .sig-type{color:var(--blue)}
+.sig-name{font-weight:800;color:var(--head);margin-bottom:4px}
+.sig-detail{color:var(--muted);line-height:1.5}
+
+/* ─── Big table ─── */
+table{width:100%;border-collapse:collapse;font-size:10px}
+th{color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;font-size:9px;padding:8px 12px;border-bottom:1px solid var(--bdr);text-align:left}
+td{padding:8px 12px;border-bottom:1px solid #ffffff05;vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--head);font-weight:700}
+.badge{display:inline-block;font-size:8px;font-weight:900;padding:2px 6px;border-radius:3px;letter-spacing:1px}
+.badge.live{background:var(--gdim);color:var(--green)}
+.badge.free{background:var(--bdim);color:var(--blue)}
+.badge.need{background:var(--odim);color:var(--orange)}
+.badge.blocked{background:var(--rdim);color:var(--red)}
 
 /* ─── Email preview ─── */
-.email-preview{background:#0a0f1a;border:1px solid var(--bdr);border-radius:8px;padding:16px 18px;font-size:11px;line-height:1.7;margin-top:10px;max-width:600px}
-.ep-label{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.ep-to{color:var(--muted);margin-bottom:2px}<br>.ep-sub{color:var(--head);font-weight:700;margin-bottom:12px}
-.ep-body{color:var(--text);white-space:pre-wrap}
-.ep-highlight{color:var(--green)}
-.ep-cta{color:var(--blue);font-style:italic}
+.email-preview{background:#080c18;border:1px solid var(--bdr2);border-radius:10px;padding:18px 20px;max-width:640px;margin-top:12px}
+.ep-meta{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.ep-to{font-size:10px;color:var(--muted);margin-bottom:3px}
+.ep-sub{font-size:12px;font-weight:800;color:var(--head);margin-bottom:14px}
+.ep-body{font-size:11px;color:var(--text);line-height:1.8;white-space:pre-wrap}
+.hi-trigger{color:var(--blue)}.hi-risk{color:var(--red)}.hi-proof{color:var(--green)}.hi-cta{color:var(--purple);font-style:italic}
+
+/* ─── Schedule ─── */
+.schedule{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:12px}
+.sched-box{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px;font-size:10px}
+.sched-time{font-size:14px;font-weight:900;margin-bottom:4px}
+.sched-desc{color:var(--muted);line-height:1.5}
+
+/* ─── Financial ─── */
+.fin{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:12px}
+.fin-box{background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px}
+.fin-num{font-size:26px;font-weight:900;color:var(--green);margin-bottom:3px}
+.fin-label{font-size:10px;color:var(--muted);line-height:1.5}
+.fin-arr{display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--bdr2)}
 
 /* ─── Scrollbar ─── */
-::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--surf3);border-radius:3px}
 
-@media(max-width:900px){
-  .fin-grid{grid-template-columns:repeat(3,1fr)}
-  .cards .card{max-width:100%}
-  .stage-row{grid-template-columns:120px 1fr}
-  .flow-arrow-wrap{grid-template-columns:120px 1fr}
+@media(max-width:1000px){
+  .grid3{grid-template-columns:1fr 1fr}
+  .grid4{grid-template-columns:1fr 1fr}
+  .schedule{grid-template-columns:repeat(3,1fr)}
+  .fin{grid-template-columns:repeat(3,1fr)}
+  .sig-grid{grid-template-columns:1fr 1fr}
+  .pipe-row{grid-template-columns:140px 1fr}
+  .connector{grid-template-columns:140px 1fr}
 }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<!-- ───── HEADER ───── -->
-<div class="page-hdr">
-  <div>
-    <div><span class="pill">ATLAS</span><span class="pill-shadow">SHADOW MODE</span></div>
+<!-- ═══ HEADER ═══ -->
+<div class="hdr">
+  <div class="hdr-l">
+    <div>
+      <span class="pill green">ATLAS v2</span>
+      <span class="pill dim">SHADOW MODE</span>
+      <span class="pill orange">10 AGENTS</span>
+    </div>
     <h1>Autonomous Territory &amp; Lead Acceleration System</h1>
-    <p>Full agentic pipeline — 6sense intent → FDIC discovery → AI research → email generation → human review → Outreach send → reply triage</p>
+    <p>The only autonomous outbound agent purpose-built for US financial institutions. Combines regulatory intent signals, multi-source AI research, contact discovery, POV-framework emails, human-gated approval, and a self-learning engine that gets smarter with every send, approval, rejection, and reply.</p>
+    <p style="margin-top:8px;color:var(--green);font-size:10px">Council verdict: All 6 signal sources. Contact waterfall (Waterfall → Apollo → Hunter). Nightly win-rate recalculation. Confidence-gated auto-mode. OCC/FDIC regulatory triggers.</p>
   </div>
-  <div class="legend">
-    <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>LIVE</div>
-    <div class="leg"><div class="leg-dot" style="background:var(--blue)"></div>FREE</div>
-    <div class="leg"><div class="leg-dot" style="background:var(--orange)"></div>KEY NEEDED</div>
-    <div class="leg"><div class="leg-dot" style="background:var(--red)"></div>BLOCKED</div>
-  </div>
-</div>
-
-<div class="pipeline-wrap">
-
-<!-- ═══════════════════════════════════════════════
-     STAGE 0 — INTENT SIGNALS
-═══════════════════════════════════════════════ -->
-<div class="stage-row">
-  <div class="stage-label">
-    <span class="num">00</span>
-    <span class="name" style="color:var(--blue)">INTENT</span>
-    <span class="sub">Buying signals<br>& triggers</span>
-  </div>
-  <div class="stage-content">
-    <div class="sec-label blue">Signal Sources — what makes an account worth targeting now</div>
-    <div class="cards">
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--bdim)">📡</div>
-          <div><div class="card-title">6sense Intent</div><div class="card-sub">SCOUT agent</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Model</span><span class="stat-val blue">Predictive AI</span></div>
-        <div class="stat-row"><span class="stat-label">Signals</span><span class="stat-val">Web activity, content, searches</span></div>
-        <div class="stat-row"><span class="stat-label">Output</span><span class="stat-val blue">Intent score 0-100</span></div>
-        <div class="stat-row"><span class="stat-label">Trigger</span><span class="stat-val orange">score ≥ 60 → pipeline</span></div>
-        <div class="tags"><span class="tag orange">KEY NEEDED</span><span class="tag dim">SIXSENSE_API_KEY</span></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--gdim)">🏦</div>
-          <div><div class="card-title">FDIC BankFind</div><div class="card-sub">Account universe</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Coverage</span><span class="stat-val green">4,279 active banks</span></div>
-        <div class="stat-row"><span class="stat-label">Filter</span><span class="stat-val">$100M–$10B assets</span></div>
-        <div class="stat-row"><span class="stat-label">Data</span><span class="stat-val">Name, city, state, CERT, domain</span></div>
-        <div class="stat-row"><span class="stat-label">Cost</span><span class="stat-val blue">FREE, no key</span></div>
-        <div class="tags"><span class="tag blue">LIVE</span><span class="tag green">api.fdic.gov</span></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--tdim)">🏛️</div>
-          <div><div class="card-title">NCUA Data</div><div class="card-sub">Credit unions</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Coverage</span><span class="stat-val">5,000+ credit unions</span></div>
-        <div class="stat-row"><span class="stat-label">Filter</span><span class="stat-val">$100M–$5B assets</span></div>
-        <div class="stat-row"><span class="stat-label">Data</span><span class="stat-val">NCUA charter, members, assets</span></div>
-        <div class="stat-row"><span class="stat-label">Cost</span><span class="stat-val blue">FREE</span></div>
-        <div class="tags"><span class="tag blue">FREE</span><span class="tag dim">ncua.gov/NCUA_data</span></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--pdim)">📋</div>
-          <div><div class="card-title">Airtable — Molly</div><div class="card-sub">3,544 pre-loaded accounts</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Records</span><span class="stat-val purple">3,544 FDIC banks</span></div>
-        <div class="stat-row"><span class="stat-label">Fields</span><span class="stat-val">Name, City, State, Asset_M, Domain</span></div>
-        <div class="stat-row"><span class="stat-label">Fallback</span><span class="stat-val">when 6sense unavailable</span></div>
-        <div class="stat-row"><span class="stat-label">Base</span><span class="stat-val dim">appwlGCHBaRef70gO</span></div>
-        <div class="tags"><span class="tag green">LIVE</span><span class="tag dim">PAT: patAKZ7u9j…</span></div>
-      </div>
-
-    </div>
-
-    <div class="output-strip">
-      <strong>Output →</strong>
-      <span>Account list with intent scores, domain, asset size, institution type, city/state</span>
-      <code>{ domain, name, asset_m, inst_type, city, state, intent_score }</code>
-    </div>
+  <div class="vs-strip">
+    <div class="vs-title">Why ATLAS beats every tool in 2026</div>
+    <div class="vs-row"><span class="vs-label">Clay</span><span class="vs-win">Generic enrichment. ATLAS has OCL case studies + compliance-domain ICP built in.</span></div>
+    <div class="vs-row"><span class="vs-label">Apollo AI</span><span class="vs-win">Spray-and-pray sequences. ATLAS only touches accounts nobody else has.</span></div>
+    <div class="vs-row"><span class="vs-label">Outreach AI</span><span class="vs-win">Copilot suggestions. ATLAS is end-to-end autonomous with human gate.</span></div>
+    <div class="vs-row"><span class="vs-label">Instantly AI</span><span class="vs-win">Cold volume. ATLAS is intent-first — every email tied to a trigger event.</span></div>
+    <div class="vs-row"><span class="vs-label">All of them</span><span class="vs-win">None learn from your approvals. ATLAS does — and gets better every cycle.</span></div>
   </div>
 </div>
 
-<!-- flow arrow -->
-<div class="flow-arrow-wrap"><div class="arrow-left"></div><div class="flow-arrow">passes account list to SENTINEL for dedup + exclusion filtering</div></div>
-
-<!-- ═══════════════════════════════════════════════
-     STAGE 1 — FILTER (SENTINEL)
-═══════════════════════════════════════════════ -->
-<div class="stage-row">
-  <div class="stage-label">
-    <span class="num">01</span>
-    <span class="name" style="color:var(--orange)">SENTINEL</span>
-    <span class="sub">Data quality<br>dedup + gates</span>
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 00 — SIGNAL INTAKE
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">00</span>
+    <span class="pipe-name" style="color:var(--blue)">SIGNALS</span>
+    <span class="pipe-sub">Intent + triggers<br>+ account universe</span>
   </div>
-  <div class="stage-content">
-    <div class="sec-label orange">Hard exclusion rules — if ANY match, account is dropped forever</div>
-    <div class="cards">
+  <div class="pipe-right">
+    <div class="sl b">9 signal sources — prioritized by heat level</div>
 
-      <div class="card wide">
+    <div class="sig-grid">
+      <div class="sig-box hot">
+        <div class="sig-type">🔴 HOT — regulatory trigger</div>
+        <div class="sig-name">OCC / FDIC / NCUA Rules</div>
+        <div class="sig-detail">Federal Register RSS feed. When a new regulation drops (BSA/AML update, fair lending rule, NCUA exam guidance) → all affected institution types marked HOT → jump to front of queue. Email references the specific ruling by name.</div>
+        <div class="tags" style="margin-top:6px"><span class="tag b">FREE</span><span class="tag dim">federalregister.gov/api/v1</span></div>
+      </div>
+      <div class="sig-box hot">
+        <div class="sig-type">🔴 HOT — intent signal</div>
+        <div class="sig-name">6sense Predictive Intent</div>
+        <div class="sig-detail">B2B intent platform. Tracks web behavior across 40,000+ B2B sites. Score 0–100. Accounts ≥ 60 enter queue. Accounts ≥ 80 skip to day 1 of sequence. Signals: competitor research, GRC keyword searches, compliance vendor pages visited.</div>
+        <div class="tags" style="margin-top:6px"><span class="tag o">KEY NEEDED</span><span class="tag dim">Nathan Paldrmann</span></div>
+      </div>
+      <div class="sig-box warm">
+        <div class="sig-type">🟠 WARM — hiring signal</div>
+        <div class="sig-name">Job Posting Intel (SerpAPI)</div>
+        <div class="sig-detail">Query: "[company] compliance officer site:linkedin.com/jobs". A bank hiring a CCO or BSA Officer = they have a compliance gap right now. This is the single best trigger available without paying for intent data. Also surfaces contact names from job postings.</div>
+        <div class="tags" style="margin-top:6px"><span class="tag o">KEY NEEDED</span><span class="tag dim">SERPAPI_KEY</span></div>
+      </div>
+      <div class="sig-box warm">
+        <div class="sig-type">🟠 WARM — growth signal</div>
+        <div class="sig-name">Branch / M&amp;A News (Perplexity)</div>
+        <div class="sig-detail">New branch opened, acquisition announced, asset milestone crossed. Growth = training headcount spike = compliance gap. Perplexity Sonar searches live web per account. "Heartland Bank acquired..." → triggers community_bank_relationship angle automatically.</div>
+        <div class="tags" style="margin-top:6px"><span class="tag o">KEY NEEDED</span><span class="tag dim">PERPLEXITY_API_KEY</span></div>
+      </div>
+      <div class="sig-box warm">
+        <div class="sig-type">🟠 WARM — exam signal</div>
+        <div class="sig-name">FDIC Enforcement Actions</div>
+        <div class="sig-detail">FDIC publishes enforcement actions (consent orders, civil money penalties) monthly. A bank under a consent order is REQUIRED to fix compliance training. Strongest possible buying signal — they have a legal obligation. Free data, monthly scrape.</div>
+        <div class="tags" style="margin-top:6px"><span class="tag b">FREE</span><span class="tag dim">fdic.gov/regulations/enforcement</span></div>
+      </div>
+      <div class="sig-box cold">
+        <div class="sig-type">🔵 BASELINE — account universe</div>
+        <div class="sig-name">FDIC BankFind + NCUA + Airtable</div>
+        <div class="sig-detail">4,279 FDIC banks ($100M–$10B assets) + 5,000+ NCUA credit unions. 3,544 pre-loaded in Airtable (Agent Molly). These are the baseline — accounts with no signal still enter queue on rotation, lowest priority. Filter: ACTIVE:1 AND ASSET:[100000 TO 10000000].</div>
+        <div class="tags" style="margin-top:6px"><span class="tag g">FREE / LIVE</span></div>
+      </div>
+    </div>
+
+    <div class="out"><strong>Priority score →</strong><span>HOT regulatory trigger (10pts) + intent ≥80 (8pts) + hiring signal (6pts) + M&amp;A news (5pts) + exam signal (9pts) + baseline (1pt)</span><code>composite_score = sum(signals)</code></div>
+  </div>
+</div>
+
+<div class="connector"><div class="conn-left"></div><div class="conn-right">top 25 accounts by composite_score → SENTINEL for exclusion check</div></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 01 — SENTINEL (FILTER)
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">01</span>
+    <span class="pipe-name" style="color:var(--orange)">SENTINEL</span>
+    <span class="pipe-sub">Dedup + 8<br>exclusion gates</span>
+  </div>
+  <div class="pipe-right">
+    <div class="sl o">Hard gates — fail any one = account dropped, never re-enters</div>
+    <div class="cards">
+      <div class="card lg">
         <div class="card-top">
           <div class="card-icon" style="background:var(--odim)">🛡️</div>
-          <div><div class="card-title">SENTINEL Agent</div><div class="card-sub">atlas/agents/sentinel.py</div></div>
+          <div><div class="card-title">SENTINEL Agent</div><div class="card-sub">atlas/agents/sentinel.py — Salesforce + Outreach checks</div></div>
         </div>
         <div class="gate">
-          <div class="gate-title">⛔ 8 Hard Exclusion Gates</div>
-          <div class="gate-rule">Current customer (any Colibri product)</div>
-          <div class="gate-rule">Account has active opportunity (any stage)</div>
-          <div class="gate-rule">Rep has had ANY contact with account (even 1 touchpoint)</div>
-          <div class="gate-rule">Contact already in active Outreach sequence</div>
-          <div class="gate-rule">Contact has unsubscribed from any email</div>
-          <div class="gate-rule">Email address has bounced</div>
-          <div class="gate-rule">Account in Farside/Agentforce pipeline</div>
-          <div class="gate-rule">Tier 1 or Tier 2 account (rep's active territory)</div>
+          <div class="gate-title">⛔ 8 Hard Exclusion Rules</div>
+          <div class="gate-rule">Current customer of ANY Colibri product</div>
+          <div class="gate-rule">Account has active opportunity (any stage in Salesforce)</div>
+          <div class="gate-rule">Any rep has had ANY contact — even 1 email, 1 call, 1 meeting</div>
+          <div class="gate-rule">Contact already enrolled in active Outreach sequence</div>
+          <div class="gate-rule">Email address has bounced (any bounce type)</div>
+          <div class="gate-rule">Contact has unsubscribed from any Colibri email</div>
+          <div class="gate-rule">Account in Farside or Agentforce pipeline</div>
+          <div class="gate-rule">Tier 1 or Tier 2 account (rep's active territory — Tier 3 only)</div>
         </div>
+        <div class="tags" style="margin-top:10px"><span class="tag r">SF CREDS NEEDED</span><span class="tag r">OUTREACH CREDS NEEDED</span><span class="tag dim">Angel / Amy Ketts</span></div>
       </div>
-
       <div class="card">
         <div class="card-top">
-          <div class="card-icon" style="background:var(--rdim)">🔗</div>
-          <div><div class="card-title">Salesforce Check</div><div class="card-sub">Dedup + history lookup</div></div>
+          <div class="card-icon" style="background:var(--bdim)">💾</div>
+          <div><div class="card-title">Dedup Store</div><div class="card-sub">Supabase / local JSON</div></div>
         </div>
-        <div class="stat-row"><span class="stat-label">Auth</span><span class="stat-val">OAuth 2.0 Connected App</span></div>
-        <div class="stat-row"><span class="stat-label">Checks</span><span class="stat-val">Accounts, Contacts, Opps, Activities</span></div>
-        <div class="stat-row"><span class="stat-label">Field</span><span class="stat-val dim">Website, BillingState, Type</span></div>
-        <div class="tags"><span class="tag red">CREDS NEEDED</span><span class="tag dim">Amy Ketts / Angel</span></div>
+        <div class="sr"><span class="sr-l">Already processed</span><span class="sr-v">skip domain</span></div>
+        <div class="sr"><span class="sr-l">Skipped by Nader</span><span class="sr-v o">30-day cooldown</span></div>
+        <div class="sr"><span class="sr-l">Rejected 3x</span><span class="sr-v r">permanent suppress</span></div>
+        <div class="sr"><span class="sr-l">Last contacted</span><span class="sr-v">60-day no-touch</span></div>
+        <div class="tags"><span class="tag o">URL NEEDED</span><span class="tag dim">Nader — Supabase</span></div>
       </div>
-
     </div>
-
-    <div class="output-strip">
-      <strong>Output →</strong>
-      <span>Clean account list — Tier 3 only, no human relationship, no existing pipeline</span>
-      <code>~160 accounts/month pass SENTINEL</code>
-    </div>
+    <div class="out"><strong>Output →</strong><span>~160 clean Tier 3 accounts/month pass SENTINEL. No human relationship. No existing pipeline.</span></div>
   </div>
 </div>
 
-<!-- flow arrow -->
-<div class="flow-arrow-wrap"><div class="arrow-left"></div><div class="flow-arrow">clean accounts passed to RECON for AI research brief generation (&lt;60s per account)</div></div>
+<div class="connector"><div class="conn-left"></div><div class="conn-right">clean accounts → RECON for multi-source AI research (runs in parallel, &lt;60s per account)</div></div>
 
-<!-- ═══════════════════════════════════════════════
-     STAGE 2 — RESEARCH (RECON)
-═══════════════════════════════════════════════ -->
-<div class="stage-row">
-  <div class="stage-label">
-    <span class="num">02</span>
-    <span class="name" style="color:var(--purple)">RECON</span>
-    <span class="sub">AI account<br>research</span>
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 02 — RECON (AI RESEARCH)
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">02</span>
+    <span class="pipe-name" style="color:var(--purple)">RECON</span>
+    <span class="pipe-sub">5-source AI<br>research brief</span>
   </div>
-  <div class="stage-content">
-    <div class="sec-label purple">For each account — pull web intel, job signals, firmographics, then synthesize a ReconBrief</div>
+  <div class="pipe-right">
+    <div class="sl p">Parallel research — 5 sources fire simultaneously, Claude synthesizes into ReconBrief</div>
     <div class="cards">
-
       <div class="card">
         <div class="card-top">
           <div class="card-icon" style="background:var(--pdim)">🔍</div>
-          <div><div class="card-title">Perplexity Sonar</div><div class="card-sub">Web research</div></div>
+          <div><div class="card-title">Perplexity Sonar</div><div class="card-sub">Web intelligence</div></div>
         </div>
-        <div class="stat-row"><span class="stat-label">Query</span><span class="stat-val">"[bank] compliance training"</span></div>
-        <div class="stat-row"><span class="stat-label">Extracts</span><span class="stat-val">Recent news, filings, announcements</span></div>
-        <div class="stat-row"><span class="stat-label">Trigger events</span><span class="stat-val">acquisitions, exam results, growth</span></div>
-        <div class="tags"><span class="tag orange">KEY NEEDED</span><span class="tag dim">PERPLEXITY_API_KEY</span></div>
+        <div class="sr"><span class="sr-l">Query</span><span class="sr-v dim">"[bank] recent news acquisitions compliance"</span></div>
+        <div class="sr"><span class="sr-l">Extracts</span><span class="sr-v">M&amp;A, branch opens, exec hires, exam results</span></div>
+        <div class="sr"><span class="sr-l">Speed</span><span class="sr-v g">&lt;8s per account</span></div>
+        <div class="tags"><span class="tag o">KEY NEEDED</span></div>
       </div>
-
       <div class="card">
         <div class="card-top">
           <div class="card-icon" style="background:var(--bdim)">💼</div>
           <div><div class="card-title">SerpAPI</div><div class="card-sub">Job posting signals</div></div>
         </div>
-        <div class="stat-row"><span class="stat-label">Query</span><span class="stat-val">"[bank] compliance officer site:linkedin"</span></div>
-        <div class="stat-row"><span class="stat-label">Signal</span><span class="stat-val">Hiring = pain point = pitch trigger</span></div>
-        <div class="stat-row"><span class="stat-label">Bonus</span><span class="stat-val">Finds contact names from postings</span></div>
-        <div class="tags"><span class="tag orange">KEY NEEDED</span><span class="tag dim">SERPAPI_KEY</span></div>
+        <div class="sr"><span class="sr-l">Query</span><span class="sr-v dim">"[bank] compliance officer linkedin jobs"</span></div>
+        <div class="sr"><span class="sr-l">Signal</span><span class="sr-v o">Hiring = live pain point</span></div>
+        <div class="sr"><span class="sr-l">Bonus</span><span class="sr-v">Contact names from job postings</span></div>
+        <div class="tags"><span class="tag o">KEY NEEDED</span></div>
       </div>
-
       <div class="card">
         <div class="card-top">
-          <div class="card-icon" style="background:var(--gdim)">🧠</div>
-          <div><div class="card-title">Claude Sonnet 4.6</div><div class="card-sub">Brief synthesis</div></div>
+          <div class="card-icon" style="background:var(--gdim)">📋</div>
+          <div><div class="card-title">FDIC Enforcement</div><div class="card-sub">Exam actions</div></div>
         </div>
-        <div class="stat-row"><span class="stat-label">Input</span><span class="stat-val">Perplexity + SerpAPI results</span></div>
-        <div class="stat-row"><span class="stat-label">Output</span><span class="stat-val purple">ReconBrief dataclass</span></div>
-        <div class="stat-row"><span class="stat-label">Model</span><span class="stat-val">claude-sonnet-4-6</span></div>
-        <div class="tags"><span class="tag orange">KEY NEEDED</span><span class="tag dim">ANTHROPIC_API_KEY</span></div>
+        <div class="sr"><span class="sr-l">Check</span><span class="sr-v">Active consent orders / CMPs</span></div>
+        <div class="sr"><span class="sr-l">If match</span><span class="sr-v r">mandatory compliance fix</span></div>
+        <div class="sr"><span class="sr-l">Signal</span><span class="sr-v g">Highest buying intent possible</span></div>
+        <div class="tags"><span class="tag g">FREE</span><span class="tag dim">fdic.gov API</span></div>
       </div>
-
-    </div>
-
-    <!-- ReconBrief output -->
-    <div class="output-strip">
-      <strong>ReconBrief output →</strong>
-      <code>domain</code>
-      <code>name</code>
-      <code>city</code>
-      <code>employee_count</code>
-      <code>pitch_angle</code>
-      <code>institution_type</code>
-    </div>
-
-    <!-- Pitch angle logic -->
-    <div style="margin-top:10px;background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px">
-      <div class="sec-label purple" style="margin-bottom:8px">Pitch Angle Selection Logic</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:10px">
-        <div style="background:var(--surf2);border:1px solid var(--bdr);border-radius:6px;padding:10px 12px">
-          <div style="color:var(--blue);font-weight:800;margin-bottom:4px">credit_union_community_mission</div>
-          <div style="color:var(--muted)">inst_type = credit_union</div>
-          <div style="color:var(--muted);margin-top:2px">Proof: Citadel CU ($6B, 600 employees)</div>
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon" style="background:var(--tdim)">📰</div>
+          <div><div class="card-title">Federal Register RSS</div><div class="card-sub">Regulatory triggers</div></div>
         </div>
-        <div style="background:var(--surf2);border:1px solid var(--bdr);border-radius:6px;padding:10px 12px">
-          <div style="color:var(--orange);font-weight:800;margin-bottom:4px">savings_institution_compliance</div>
-          <div style="color:var(--muted)">inst_type = savings</div>
-          <div style="color:var(--muted);margin-top:2px">Proof: Martha's Vineyard Bank (110yr old)</div>
+        <div class="sr"><span class="sr-l">Feed</span><span class="sr-v">OCC, FDIC, NCUA, FinCEN rules</span></div>
+        <div class="sr"><span class="sr-l">Match</span><span class="sr-v">Rule → affected institution types</span></div>
+        <div class="sr"><span class="sr-l">Output</span><span class="sr-v c">Specific regulation to cite in email</span></div>
+        <div class="tags"><span class="tag g">FREE</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top">
+          <div class="card-icon" style="background:var(--ydim)">🧠</div>
+          <div><div class="card-title">Claude Sonnet 4.6</div><div class="card-sub">Synthesis</div></div>
         </div>
-        <div style="background:var(--surf2);border:1px solid var(--bdr);border-radius:6px;padding:10px 12px">
-          <div style="color:var(--green);font-weight:800;margin-bottom:4px">enterprise_bank_scale</div>
-          <div style="color:var(--muted)">asset_m ≥ $5B</div>
-          <div style="color:var(--muted);margin-top:2px">GRC at scale, multi-region ops</div>
-        </div>
-        <div style="background:var(--surf2);border:1px solid var(--bdr);border-radius:6px;padding:10px 12px">
-          <div style="color:var(--purple);font-weight:800;margin-bottom:4px">mid_market_bank_grc</div>
-          <div style="color:var(--muted)">asset_m $1B–$5B</div>
-          <div style="color:var(--muted);margin-top:2px">Growing headcount + GRC complexity</div>
-        </div>
-        <div style="background:var(--surf2);border:1px solid var(--bdr);border-radius:6px;padding:10px 12px">
-          <div style="color:var(--teal);font-weight:800;margin-bottom:4px">community_bank_relationship</div>
-          <div style="color:var(--muted)">asset_m &lt; $500M</div>
-          <div style="color:var(--muted);margin-top:2px">Proof: Security First Bank (26 branches)</div>
-        </div>
-        <div style="background:var(--surf2);border:1px solid var(--bdr);border-radius:6px;padding:10px 12px">
-          <div style="color:var(--yellow);font-weight:800;margin-bottom:4px">general_fs_compliance</div>
-          <div style="color:var(--muted)">fallback</div>
-          <div style="color:var(--muted);margin-top:2px">BSA/AML, TILA, fair lending</div>
-        </div>
+        <div class="sr"><span class="sr-l">Input</span><span class="sr-v">All 4 sources above</span></div>
+        <div class="sr"><span class="sr-l">Output</span><span class="sr-v p">ReconBrief dataclass</span></div>
+        <div class="sr"><span class="sr-l">Selects</span><span class="sr-v">pitch_angle, trigger_event, regulations</span></div>
+        <div class="tags"><span class="tag o">KEY NEEDED</span><span class="tag dim">ANTHROPIC_API_KEY</span></div>
       </div>
     </div>
+
+    <!-- Pitch angle table -->
+    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px;margin-top:4px">
+      <div class="sl p" style="margin-bottom:10px">Pitch angle selection — Claude picks best match based on research</div>
+      <div class="grid3">
+        <div class="sub-box"><div class="sub-title" style="color:var(--blue)">credit_union_community_mission</div><div style="color:var(--muted)">NCUA exam pressure + Fair Lending. Proof: Citadel CU ($6B, 600 employees, 24 branches)</div></div>
+        <div class="sub-box"><div class="sub-title" style="color:var(--orange)">savings_institution_compliance</div><div style="color:var(--muted)">RESPA, TILA, fair lending pressure. Proof: Martha's Vineyard Bank (110yr, 100+ employees)</div></div>
+        <div class="sub-box"><div class="sub-title" style="color:var(--green)">enterprise_bank_scale</div><div style="color:var(--muted)">Asset ≥$5B. GRC training at multi-region scale. OCC/Fed requirements. Proof: Citadel CU</div></div>
+        <div class="sub-box"><div class="sub-title" style="color:var(--purple)">mid_market_bank_grc</div><div style="color:var(--muted)">Asset $1B–$5B. Growing headcount + regulatory complexity. BSA/AML + CRA focus</div></div>
+        <div class="sub-box"><div class="sub-title" style="color:var(--teal)">community_bank_relationship</div><div style="color:var(--muted)">Asset &lt;$500M. Branch expansion or acquisition. Proof: Security First Bank (26 branches, Nebraska)</div></div>
+        <div class="sub-box"><div class="sub-title" style="color:var(--yellow)">general_fs_compliance</div><div style="color:var(--muted)">Fallback. BSA/AML, TILA, fair lending. Proof: Security First Bank</div></div>
+      </div>
+    </div>
+
+    <div class="out"><strong>ReconBrief →</strong><code>domain</code><code>name</code><code>city</code><code>employee_count</code><code>pitch_angle</code><code>trigger_event</code><code>regulations</code><code>institution_type</code><code>asset_m</code><code>enforcement_flag</code></div>
   </div>
 </div>
 
-<!-- flow arrow -->
-<div class="flow-arrow-wrap"><div class="arrow-left"></div><div class="flow-arrow">ReconBrief handed to FORGE — template-based email generation (no LLM, deterministic, instant)</div></div>
+<div class="connector"><div class="conn-left"></div><div class="conn-right">ReconBrief → contact discovery waterfall to get actual name + email of CCO / BSA Officer</div></div>
 
-<!-- ═══════════════════════════════════════════════
-     STAGE 3 — EMAIL GENERATION (FORGE)
-═══════════════════════════════════════════════ -->
-<div class="stage-row">
-  <div class="stage-label">
-    <span class="num">03</span>
-    <span class="name" style="color:var(--green)">FORGE</span>
-    <span class="sub">Personalized<br>outreach writer</span>
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 03 — CONTACT DISCOVERY
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">03</span>
+    <span class="pipe-name" style="color:var(--cyan)">CONTACTS</span>
+    <span class="pipe-sub">Find real names<br>+ verified emails</span>
   </div>
-  <div class="stage-content">
-    <div class="sec-label green">POV framework — trigger → complexity → risk → proof → CTA — deterministic, no LLM cost</div>
+  <div class="pipe-right">
+    <div class="sl c">Target P1 title first — fall through chain until valid contact found</div>
     <div class="cards">
-
-      <div class="card">
+      <div class="card lg">
         <div class="card-top">
-          <div class="card-icon" style="background:var(--gdim)">✉️</div>
-          <div><div class="card-title">Subject Line</div><div class="card-sub">From pitch angle hook</div></div>
+          <div class="card-icon" style="background:var(--cdim)">🎯</div>
+          <div><div class="card-title">Title Priority Order</div><div class="card-sub">ICP compliance-first — atlas/icp.py</div></div>
         </div>
-        <div class="stat-row"><span class="stat-label">Template</span><span class="stat-val">{company}'s {angle_hook}</span></div>
-        <div class="stat-row"><span class="stat-label">Example</span><span class="stat-val green">"Heartland Bank's compliance training across 420 employees"</span></div>
+        <div class="sr"><span class="sr-l" style="color:var(--red)">P1 Compliance</span><span class="sr-v">CCO, Chief Compliance Officer, VP Compliance, BSA Officer, AML Director, Fair Lending Officer</span></div>
+        <div class="sr"><span class="sr-l" style="color:var(--orange)">P2 HR</span><span class="sr-v">CHRO, Chief People Officer, VP Human Resources, Director of HR</span></div>
+        <div class="sr"><span class="sr-l" style="color:var(--blue)">P3 L&amp;D</span><span class="sr-v">L&amp;D Director, Training Director, VP Learning, Learning Manager</span></div>
+        <div class="sr"><span class="sr-l" style="color:var(--muted)">No P1/P2/P3?</span><span class="sr-v r">Skip account — no send</span></div>
       </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--tdim)">🎯</div>
-          <div><div class="card-title">Target Titles</div><div class="card-sub">Compliance-first ICP</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">P1 — Compliance</span><span class="stat-val green">CCO, VP Compliance, BSA Officer…</span></div>
-        <div class="stat-row"><span class="stat-label">P2 — HR</span><span class="stat-val blue">CHRO, Chief People Officer…</span></div>
-        <div class="stat-row"><span class="stat-label">P3 — L&amp;D</span><span class="stat-val purple">L&amp;D Director, Training Director…</span></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--ydim)">🔀</div>
-          <div><div class="card-title">CTA A/B System</div><div class="card-sub">Deterministic by domain hash</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Variant A</span><span class="stat-val">sum(domain chars) % 2 == 0</span></div>
-        <div class="stat-row"><span class="stat-label">Variant B</span><span class="stat-val">sum(domain chars) % 2 == 1</span></div>
-        <div class="stat-row"><span class="stat-label">Rule</span><span class="stat-val green">Same domain = same variant always</span></div>
-      </div>
-
-    </div>
-
-    <!-- Email body breakdown -->
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px;margin-top:10px">
-      <div class="sec-label green" style="margin-bottom:10px">Email body structure — 4 lines</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;font-size:10px">
-        <div style="background:var(--surf2);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;padding:10px 12px">
-          <div style="color:var(--blue);font-weight:800;font-size:9px;letter-spacing:1px;margin-bottom:4px">LINE 1 — TRIGGER</div>
-          <div style="color:var(--muted)">{company}'s {trigger} likely means {complexity}.</div>
-        </div>
-        <div style="background:var(--surf2);border-left:3px solid var(--orange);border-radius:0 6px 6px 0;padding:10px 12px">
-          <div style="color:var(--orange);font-weight:800;font-size:9px;letter-spacing:1px;margin-bottom:4px">LINE 2 — RISK</div>
-          <div style="color:var(--muted)">That creates {risk} — specific to their regulatory exposure.</div>
-        </div>
-        <div style="background:var(--surf2);border-left:3px solid var(--green);border-radius:0 6px 6px 0;padding:10px 12px">
-          <div style="color:var(--green);font-weight:800;font-size:9px;letter-spacing:1px;margin-bottom:4px">LINE 3 — PROOF</div>
-          <div style="color:var(--muted)">We helped {case_study_company} — {detail} — who {challenge}. They {outcome}.</div>
-        </div>
-        <div style="background:var(--surf2);border-left:3px solid var(--purple);border-radius:0 6px 6px 0;padding:10px 12px">
-          <div style="color:var(--purple);font-weight:800;font-size:9px;letter-spacing:1px;margin-bottom:4px">LINE 4 — CTA</div>
-          <div style="color:var(--muted)">CTA_A or CTA_B (from icp.py) + "\n\nSam"</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sample email -->
-    <div class="email-preview">
-      <div class="ep-label">SAMPLE EMAIL DRAFT — community_bank_relationship angle</div>
-      <div class="ep-to">To: CCO, VP Compliance, BSA Officer @ Heartland Bank</div>
-      <div class="ep-sub">Subject: Heartland Bank's compliance consistency across 420 employees</div>
-      <br>
-      Hi [First Name],<br><br>
-      <span class="ep-highlight">Heartland Bank's growth through branch expansion or acquisition</span> likely means your training team is keeping up with BSA/AML and TILA requirements across locations with different staffing levels.<br><br>
-      That creates <span style="color:var(--red)">inconsistent compliance knowledge across branches — which creates exam exposure and customer-facing risk.</span><br><br>
-      We helped <span style="color:var(--green)">Security First Bank — a community bank in Nebraska with 280+ employees across 26 branches</span> — who needed consistent compliance training as they acquired new branches across two states. They built a centralized training program that scaled with their growth.<br><br>
-      <span class="ep-cta">Are you reviewing your compliance training approach ahead of your next exam cycle? Happy to show you what we built for Security First.</span><br><br>
-      Sam
-    </div>
-
-    <div class="output-strip" style="margin-top:10px">
-      <strong>Output →</strong>
-      <span>EmailDraft: </span>
-      <code>domain</code><code>subject</code><code>body</code><code>pitch_angle</code><code>case_study_used</code><code>target_titles</code>
-    </div>
-  </div>
-</div>
-
-<!-- flow arrow -->
-<div class="flow-arrow-wrap"><div class="arrow-left"></div><div class="flow-arrow">email batch packaged by CORTEX → sent to human reviewer via Microsoft Teams card</div></div>
-
-<!-- ═══════════════════════════════════════════════
-     STAGE 4 — HUMAN REVIEW (CORTEX)
-═══════════════════════════════════════════════ -->
-<div class="stage-row">
-  <div class="stage-label">
-    <span class="num">04</span>
-    <span class="name" style="color:var(--yellow)">REVIEW</span>
-    <span class="sub">CORTEX + human<br>approval gate</span>
-  </div>
-  <div class="stage-content">
-    <div class="sec-label yellow">6:00 AM batch generated → 9:00 AM Nader reviews in Teams → 9:15 AM approved sends go out</div>
-    <div class="cards">
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--ydim)">🧬</div>
-          <div><div class="card-title">CORTEX</div><div class="card-sub">atlas/agents/cortex.py</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Mode: shadow</span><span class="stat-val">generate only, send nothing</span></div>
-        <div class="stat-row"><span class="stat-label">Mode: review</span><span class="stat-val yellow">→ Teams card, human approves</span></div>
-        <div class="stat-row"><span class="stat-label">Mode: auto</span><span class="stat-val">Month 3+ after confidence gates</span></div>
-        <div class="stat-row"><span class="stat-label">Daily limit</span><span class="stat-val">25 sends max</span></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--ydim)">💬</div>
-          <div><div class="card-title">Microsoft Teams</div><div class="card-sub">Review notification</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Format</span><span class="stat-val">Adaptive Card per batch</span></div>
-        <div class="stat-row"><span class="stat-label">Actions</span><span class="stat-val">Approve all / Review each / Skip</span></div>
-        <div class="stat-row"><span class="stat-label">Reviewer</span><span class="stat-val yellow">Nader Rustom (quality gate)</span></div>
-        <div class="tags"><span class="tag red">URL NEEDED</span><span class="tag dim">TEAMS_WEBHOOK_URL (Nathan)</span></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--bdim)">🖥️</div>
-          <div><div class="card-title">Local UI — localhost:5001</div><div class="card-sub">Email review queue</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Status</span><span class="stat-val green">LIVE NOW</span></div>
-        <div class="stat-row"><span class="stat-label">Queue</span><span class="stat-val">100 emails pre-loaded from FDIC</span></div>
-        <div class="stat-row"><span class="stat-label">Actions</span><span class="stat-val">Approve / Skip / Edit / Export CSV</span></div>
-        <div class="tags"><span class="tag green">RUNNING</span><span class="tag dim">ui_server.py</span></div>
-      </div>
-
-    </div>
-
-    <!-- ATLAS MODE table -->
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px;margin-top:10px">
-      <div class="sec-label yellow" style="margin-bottom:8px">ATLAS_MODE routing in CORTEX</div>
-      <table class="api-table">
-        <tr><th>MODE</th><th>GENERATE</th><th>TEAMS CARD</th><th>SEND</th><th>WHEN</th></tr>
-        <tr><td>shadow</td><td style="color:var(--green)">YES</td><td style="color:var(--red)">NO</td><td style="color:var(--red)">NO</td><td style="color:var(--muted)">Now — testing/proving value</td></tr>
-        <tr><td>review</td><td style="color:var(--green)">YES</td><td style="color:var(--green)">YES</td><td style="color:var(--yellow)">After Nader approves</td><td style="color:var(--muted)">Default after API creds</td></tr>
-        <tr><td>auto</td><td style="color:var(--green)">YES</td><td style="color:var(--muted)">OPTIONAL</td><td style="color:var(--green)">YES — immediate</td><td style="color:var(--muted)">Month 3+ with confidence ≥ 0.85</td></tr>
-        <tr><td>paused</td><td style="color:var(--red)">NO</td><td style="color:var(--red)">NO</td><td style="color:var(--red)">NO</td><td style="color:var(--muted)">Full stop</td></tr>
-      </table>
-    </div>
-  </div>
-</div>
-
-<!-- flow arrow -->
-<div class="flow-arrow-wrap"><div class="arrow-left"></div><div class="flow-arrow">approved batch → contact enrichment → email validation → sequence enrollment in Outreach / Instantly</div></div>
-
-<!-- ═══════════════════════════════════════════════
-     STAGE 5 — SEND (FORGE EXECUTE)
-═══════════════════════════════════════════════ -->
-<div class="stage-row">
-  <div class="stage-label">
-    <span class="num">05</span>
-    <span class="name" style="color:var(--teal)">SEND</span>
-    <span class="sub">Contact enrich<br>+ sequence enroll</span>
-  </div>
-  <div class="stage-content">
-    <div class="sec-label teal">Before sending — validate contact, clean email, enroll in sequence — then fire</div>
-    <div class="cards">
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--bdim)">💧</div>
-          <div><div class="card-title">Waterfall.io</div><div class="card-sub">Contact enrichment</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Input</span><span class="stat-val">domain + target title list</span></div>
-        <div class="stat-row"><span class="stat-label">Output</span><span class="stat-val">First name, last name, email</span></div>
-        <div class="stat-row"><span class="stat-label">Fallback</span><span class="stat-val">Apollo, Hunter, LinkedIn</span></div>
-        <div class="tags"><span class="tag orange">KEY NEEDED</span></div>
-      </div>
-
       <div class="card">
         <div class="card-top">
           <div class="card-icon" style="background:var(--gdim)">✅</div>
           <div><div class="card-title">ZeroBounce</div><div class="card-sub">Email validation</div></div>
         </div>
-        <div class="stat-row"><span class="stat-label">Checks</span><span class="stat-val">Valid, invalid, catch-all, risky</span></div>
-        <div class="stat-row"><span class="stat-label">Gate</span><span class="stat-val red">invalid → drop, never send</span></div>
-        <div class="stat-row"><span class="stat-label">Catch-all</span><span class="stat-val orange">send cautiously</span></div>
-        <div class="tags"><span class="tag orange">KEY NEEDED</span></div>
+        <div class="sr"><span class="sr-l">Valid</span><span class="sr-v g">→ proceed to FORGE</span></div>
+        <div class="sr"><span class="sr-l">Invalid</span><span class="sr-v r">→ try next contact</span></div>
+        <div class="sr"><span class="sr-l">Catch-all</span><span class="sr-v o">→ send with caution flag</span></div>
+        <div class="sr"><span class="sr-l">Risky</span><span class="sr-v o">→ Nader decides</span></div>
+        <div class="tags"><span class="tag o">KEY NEEDED</span></div>
       </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--tdim)">📨</div>
-          <div><div class="card-title">Outreach.io</div><div class="card-sub">Primary send channel</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Auth</span><span class="stat-val">OAuth 2.0 S2S</span></div>
-        <div class="stat-row"><span class="stat-label">Action</span><span class="stat-val">Enroll prospect in sequence</span></div>
-        <div class="stat-row"><span class="stat-label">Tracking</span><span class="stat-val">Opens, clicks, replies (native)</span></div>
-        <div class="tags"><span class="tag red">S2S CREDS NEEDED</span><span class="tag dim">Amy Ketts</span></div>
-      </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--pdim)">⚡</div>
-          <div><div class="card-title">Instantly V2</div><div class="card-sub">Fallback / cold volume</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Use case</span><span class="stat-val">When Outreach unavailable</span></div>
-        <div class="stat-row"><span class="stat-label">Auth</span><span class="stat-val">API Key</span></div>
-        <div class="stat-row"><span class="stat-label">Tracking</span><span class="stat-val">Opens, replies, bounce rate</span></div>
-        <div class="tags"><span class="tag orange">KEY NEEDED</span></div>
-      </div>
-
     </div>
 
-    <div class="output-strip">
-      <strong>Output →</strong>
-      <span>Email delivered to CCO / VP Compliance / CHRO at target bank — enrolled in Outreach sequence — logged to Salesforce</span>
+    <!-- Contact waterfall -->
+    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px;margin-top:4px;max-width:700px">
+      <div class="sl c" style="margin-bottom:12px">Contact discovery waterfall — in order, until valid email found</div>
+      <div class="waterfall">
+        <div class="wf-step">
+          <div class="wf-num"><div class="wf-dot" style="border-color:var(--green)"></div><div class="wf-line"></div></div>
+          <div class="wf-content"><div class="wf-label" style="color:var(--green)">1. Waterfall.io (Primary)</div><div class="wf-desc">Multi-source contact aggregator — Apollo + Hunter + LinkedIn + ZoomInfo under one API. Highest coverage, ranked by confidence. Cost: ~$0.05/contact.</div><div class="wf-if-miss">if no P1 found → try P2 title</div></div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num"><div class="wf-dot" style="border-color:var(--blue)"></div><div class="wf-line"></div></div>
+          <div class="wf-content"><div class="wf-label" style="color:var(--blue)">2. Apollo.io (Fallback 1)</div><div class="wf-desc">275M+ contacts database. Strong at mid-market banks. Query: domain + title keywords. Free tier: 50 credits/month. Paid: $49/mo.</div><div class="wf-if-miss">if still no valid contact → Hunter</div></div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num"><div class="wf-dot" style="border-color:var(--purple)"></div><div class="wf-line"></div></div>
+          <div class="wf-content"><div class="wf-label" style="color:var(--purple)">3. Hunter.io (Fallback 2)</div><div class="wf-desc">Domain-based email finder. Best for finding patterns (first.last@bank.com). Confirms email format for custom name guesses. Free: 25 searches/month.</div><div class="wf-if-miss">if still nothing → ZeroBounce pattern guess</div></div>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num"><div class="wf-dot" style="border-color:var(--yellow)"></div></div>
+          <div class="wf-content"><div class="wf-label" style="color:var(--yellow)">4. ZeroBounce Pattern Guess (Last Resort)</div><div class="wf-desc">If name known from SerpAPI job posting but email unknown — guess first.last@domain.com, validate. Used for regulatory-triggered HOT accounts only.</div></div>
+        </div>
+      </div>
     </div>
+
+    <div class="out"><strong>Output →</strong><code>first_name</code><code>last_name</code><code>title</code><code>email</code><code>email_confidence</code><code>source</code><span>— personalized [First Name] in email body</span></div>
   </div>
 </div>
 
-<!-- flow arrow -->
-<div class="flow-arrow-wrap"><div class="arrow-left"></div><div class="flow-arrow">every 30 min — CORTEX polls for replies, classifies intent, routes to rep</div></div>
+<div class="connector"><div class="conn-left"></div><div class="conn-right">verified contact + ReconBrief → FORGE generates personalized POV email (no LLM cost, deterministic, instant)</div></div>
 
-<!-- ═══════════════════════════════════════════════
-     STAGE 6 — REPLY TRIAGE (CORTEX)
-═══════════════════════════════════════════════ -->
-<div class="stage-row">
-  <div class="stage-label">
-    <span class="num">06</span>
-    <span class="name" style="color:var(--red)">REPLIES</span>
-    <span class="sub">Classification<br>+ rep handoff</span>
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 04 — FORGE (EMAIL GENERATION)
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">04</span>
+    <span class="pipe-name" style="color:var(--green)">FORGE</span>
+    <span class="pipe-sub">POV framework<br>email writer</span>
   </div>
-  <div class="stage-content">
-    <div class="sec-label red">CORTEX polls every 30 min — classifies reply — routes warm to rep, objection to follow-up sequence</div>
+  <div class="pipe-right">
+    <div class="sl g">Template-based, deterministic — no LLM cost, &lt;0.1s per email, same domain = same variant always</div>
     <div class="cards">
-
-      <div class="card wide">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--gdim)">🧠</div>
-          <div><div class="card-title">Claude Haiku 4.5</div><div class="card-sub">Reply classification</div></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;font-size:10px">
-          <div style="background:var(--gdim);border-radius:6px;padding:8px 10px">
-            <div style="color:var(--green);font-weight:800;margin-bottom:3px">INTERESTED</div>
-            <div style="color:var(--muted)">→ ping rep immediately via Teams</div>
-          </div>
-          <div style="background:var(--odim);border-radius:6px;padding:8px 10px">
-            <div style="color:var(--orange);font-weight:800;margin-bottom:3px">OBJECTION</div>
-            <div style="color:var(--muted)">→ enroll in objection-handling sequence</div>
-          </div>
-          <div style="background:var(--rdim);border-radius:6px;padding:8px 10px">
-            <div style="color:var(--red);font-weight:800;margin-bottom:3px">UNSUBSCRIBE</div>
-            <div style="color:var(--muted)">→ suppress permanently in Salesforce</div>
-          </div>
-        </div>
-      </div>
-
       <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--ydim)">🔔</div>
-          <div><div class="card-title">Teams Alert</div><div class="card-sub">Rep ping</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Trigger</span><span class="stat-val">INTERESTED reply classified</span></div>
-        <div class="stat-row"><span class="stat-label">Content</span><span class="stat-val">Account name, reply text, next step</span></div>
-        <div class="stat-row"><span class="stat-label">SLA</span><span class="stat-val green">&lt;30 min from reply</span></div>
+        <div class="card-top"><div class="card-icon" style="background:var(--gdim)">📐</div><div><div class="card-title">POV Framework</div><div class="card-sub">4-line structure</div></div></div>
+        <div class="sr"><span class="sr-l">Line 1</span><span class="sr-v b">TRIGGER — what's happening at their bank</span></div>
+        <div class="sr"><span class="sr-l">Line 2</span><span class="sr-v r">RISK — what that creates for compliance</span></div>
+        <div class="sr"><span class="sr-l">Line 3</span><span class="sr-v g">PROOF — case study matched by type+size</span></div>
+        <div class="sr"><span class="sr-l">Line 4</span><span class="sr-v p">CTA — A or B, deterministic by domain hash</span></div>
       </div>
-
+      <div class="card">
+        <div class="card-top"><div class="card-icon" style="background:var(--ydim)">🔀</div><div><div class="card-title">CTA A/B System</div><div class="card-sub">atlas/icp.py — CTA_VARIANTS</div></div></div>
+        <div class="sr"><span class="sr-l">Assignment</span><span class="sr-v">sum(domain chars) % 2</span></div>
+        <div class="sr"><span class="sr-l">Variant A</span><span class="sr-v dim">"Are you reviewing your compliance training approach ahead of your next exam cycle?"</span></div>
+        <div class="sr"><span class="sr-l">Variant B</span><span class="sr-v dim">"If you and the team are looking at how other banks are handling this, happy to share what we built."</span></div>
+        <div class="sr"><span class="sr-l">Tracking</span><span class="sr-v g">PHOENIX tracks reply rate A vs B</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><div class="card-icon" style="background:var(--tdim)">📚</div><div><div class="card-title">Case Studies</div><div class="card-sub">Matched by institution type</div></div></div>
+        <div class="sr"><span class="sr-l">Credit Unions</span><span class="sr-v">Citadel CU — $6B, 600 employees, 24 branches</span></div>
+        <div class="sr"><span class="sr-l">Community Banks</span><span class="sr-v">Security First Bank — 26 branches, Nebraska</span></div>
+        <div class="sr"><span class="sr-l">Savings Inst.</span><span class="sr-v">Martha's Vineyard — 110yr old, MA</span></div>
+        <div class="sr"><span class="sr-l">Default</span><span class="sr-v">Security First Bank</span></div>
+      </div>
     </div>
 
-    <div class="output-strip">
-      <strong>Expected →</strong>
-      <span>160 sends/mo → 3% reply rate → </span>
-      <code>~5 warm replies/month</code>
-      <code>→ 4.5 opportunities</code>
-      <code>→ $1.35M annual (conservative)</code>
+    <!-- Sample email -->
+    <div class="email-preview">
+      <div class="ep-meta">Sample generated email — community_bank_relationship + CTA-A + ZeroBounce validated</div>
+      <div class="ep-to">To: Jennifer Walsh, VP Compliance → jwelsh@heartlandbank.com (ZeroBounce: valid)</div>
+      <div class="ep-sub">Heartland Bank's compliance consistency across 420 employees</div>
+      Hi Jennifer,<div style="height:10px"></div>
+      <span class="ep-body"><span class="hi-trigger">Heartland Bank's recent acquisition of Midwest Community Bank</span> likely means your training team is keeping up with BSA/AML and TILA requirements across locations with different staffing levels.
+
+<span class="hi-risk">That creates inconsistent compliance knowledge across branches — which creates exam exposure and customer-facing risk.</span>
+
+<span class="hi-proof">We helped Security First Bank — a community bank in Nebraska with 280+ employees across 26 branches — who needed consistent compliance training as they acquired new branches across two states. They built a centralized training program that scaled with their growth.</span>
+
+<span class="hi-cta">Are you reviewing your compliance training approach ahead of your next exam cycle? Happy to show you what we built for Security First.</span>
+
+Sam</span>
     </div>
+
+    <div class="out"><strong>EmailDraft →</strong><code>domain</code><code>first_name</code><code>email</code><code>subject</code><code>body</code><code>pitch_angle</code><code>case_study_used</code><code>cta_variant</code><code>composite_score</code></div>
   </div>
 </div>
 
-<!-- flow arrow -->
-<div class="flow-arrow-wrap"><div class="arrow-left"></div><div class="flow-arrow">6:00 PM daily — COMMAND sends summary to Teams. Vitals scans for 8-day stale leads.</div></div>
+<div class="connector"><div class="conn-left"></div><div class="conn-right">email batch packaged by CORTEX → confidence check → high confidence auto, low confidence → Nader review</div></div>
 
-<!-- ═══════════════════════════════════════════════
-     STAGE 7 — REPORTING + VITALS
-═══════════════════════════════════════════════ -->
-<div class="stage-row">
-  <div class="stage-label">
-    <span class="num">07</span>
-    <span class="name" style="color:var(--pink)">COMMAND</span>
-    <span class="sub">KPIs, digest<br>+ stale leads</span>
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 05 — CORTEX (CONFIDENCE GATE + REVIEW)
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">05</span>
+    <span class="pipe-name" style="color:var(--yellow)">CORTEX</span>
+    <span class="pipe-sub">Orchestration<br>brain + gate</span>
   </div>
-  <div class="stage-content">
-    <div class="sec-label pink">Daily summary + stale lead recovery — closes the loop</div>
+  <div class="pipe-right">
+    <div class="sl y">Confidence gate — PHOENIX-trained score determines if email auto-sends or needs Nader's eyes</div>
     <div class="cards">
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--pkdim)">📊</div>
-          <div><div class="card-title">COMMAND</div><div class="card-sub">atlas/agents/command.py</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">6:00 PM</span><span class="stat-val">Daily Teams digest</span></div>
-        <div class="stat-row"><span class="stat-label">KPIs</span><span class="stat-val">Sent, opens, replies, meetings</span></div>
-        <div class="stat-row"><span class="stat-label">Trend</span><span class="stat-val">7-day rolling metrics</span></div>
+      <div class="card md">
+        <div class="card-top"><div class="card-icon" style="background:var(--ydim)">🧬</div><div><div class="card-title">Confidence Score</div><div class="card-sub">PHOENIX-trained per pattern</div></div></div>
+        <div class="sr"><span class="sr-l">Pattern match</span><span class="sr-v">pitch_angle + inst_type + asset_bucket</span></div>
+        <div class="sr"><span class="sr-l">≥ 0.85</span><span class="sr-v g">AUTO — skip Teams card</span></div>
+        <div class="sr"><span class="sr-l">0.60 – 0.85</span><span class="sr-v y">REVIEW — Teams card to Nader</span></div>
+        <div class="sr"><span class="sr-l">&lt; 0.60</span><span class="sr-v r">HOLD — needs more data</span></div>
+        <div style="margin-top:8px;font-size:9px;color:var(--muted)">Confidence starts at 0.50 for all patterns. Moves up/down based on PHOENIX win rates.</div>
+        <div class="conf-track" style="margin-top:4px"><div class="conf-fill" style="width:50%"></div></div>
+        <div style="font-size:9px;color:var(--muted);margin-top:2px">Current: 0.50 (cold start — all go to review)</div>
       </div>
-
-      <div class="card">
-        <div class="card-top">
-          <div class="card-icon" style="background:var(--ydim)">⏱️</div>
-          <div><div class="card-title">VITALS</div><div class="card-sub">atlas/agents/vitals.py</div></div>
-        </div>
-        <div class="stat-row"><span class="stat-label">Trigger</span><span class="stat-val orange">Lead &gt; 8 days, no activity</span></div>
-        <div class="stat-row"><span class="stat-label">Scope</span><span class="stat-val">Pre-opportunity ONLY (Tier 3)</span></div>
-        <div class="stat-row"><span class="stat-label">Action</span><span class="stat-val">Re-enroll in follow-up sequence</span></div>
-        <div class="stat-row"><span class="stat-label">NOT</span><span class="stat-val red">stale opps (human owns those)</span></div>
+      <div class="card md">
+        <div class="card-top"><div class="card-icon" style="background:var(--ydim)">💬</div><div><div class="card-title">Teams Review Card</div><div class="card-sub">Adaptive Card — Nader's queue</div></div></div>
+        <div class="sr"><span class="sr-l">Sent</span><span class="sr-v">9:00 AM daily batch</span></div>
+        <div class="sr"><span class="sr-l">Shows</span><span class="sr-v">Subject, body, company, score</span></div>
+        <div class="sr"><span class="sr-l">Actions</span><span class="sr-v">✅ Approve / ⏭ Skip / ✏️ Edit</span></div>
+        <div class="sr"><span class="sr-l">Reason</span><span class="sr-v">Optional rejection reason text</span></div>
+        <div class="sr"><span class="sr-l">Feedback</span><span class="sr-v g">ALL decisions → PHOENIX</span></div>
+        <div class="tags"><span class="tag r">WEBHOOK NEEDED</span><span class="tag dim">Nathan Paldrmann</span></div>
       </div>
+      <div class="card">
+        <div class="card-top"><div class="card-icon" style="background:var(--bdim)">🖥️</div><div><div class="card-title">Local UI — :5001</div><div class="card-sub">Email review queue</div></div></div>
+        <div class="sr"><span class="sr-l">Status</span><span class="sr-v g">LIVE NOW</span></div>
+        <div class="sr"><span class="sr-l">Queue</span><span class="sr-v">100 emails pre-loaded (FDIC)</span></div>
+        <div class="sr"><span class="sr-l">Actions</span><span class="sr-v">Approve / Skip / Edit / CSV export</span></div>
+        <div class="tags"><span class="tag g">RUNNING</span><span class="tag dim">ui_server.py + email_queue.json</span></div>
+      </div>
+    </div>
 
+    <!-- Mode table -->
+    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px;margin-top:4px">
+      <div class="sl y" style="margin-bottom:8px">ATLAS_MODE routing</div>
+      <table>
+        <tr><th>ATLAS_MODE</th><th>GENERATE</th><th>TEAMS / UI REVIEW</th><th>SEND</th><th>WHEN</th></tr>
+        <tr><td>shadow</td><td style="color:var(--green)">YES</td><td style="color:var(--red)">NO</td><td style="color:var(--red)">NO</td><td style="color:var(--muted)">NOW — proving value, PHOENIX warming up</td></tr>
+        <tr><td>review</td><td style="color:var(--green)">YES</td><td style="color:var(--green)">YES → Nader</td><td style="color:var(--yellow)">After approval</td><td style="color:var(--muted)">Default once API creds landed</td></tr>
+        <tr><td>auto</td><td style="color:var(--green)">YES</td><td style="color:var(--muted)">Only if score &lt;0.85</td><td style="color:var(--green)">Immediate if score ≥0.85</td><td style="color:var(--muted)">Month 3+ with PHOENIX-trained patterns</td></tr>
+        <tr><td>paused</td><td style="color:var(--red)">NO</td><td style="color:var(--red)">NO</td><td style="color:var(--red)">NO</td><td style="color:var(--muted)">Emergency stop</td></tr>
+      </table>
+    </div>
+
+    <div class="out"><strong>Every decision logged →</strong><code>approved</code><code>rejected</code><code>reason</code><code>timestamp</code><code>pattern_key</code><span>→ fed to PHOENIX for learning</span></div>
+  </div>
+</div>
+
+<div class="connector"><div class="conn-left"></div><div class="conn-right">approved emails → Outreach sequence enrollment (primary) or Instantly V2 (fallback) — 9:15 AM send window</div></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 06 — SEND
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">06</span>
+    <span class="pipe-name" style="color:var(--teal)">SEND</span>
+    <span class="pipe-sub">Outreach sequence<br>enrollment + fire</span>
+  </div>
+  <div class="pipe-right">
+    <div class="sl t">9:15 AM — approved batch enrolled in Outreach sequence — tracked natively (opens, clicks, replies)</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><div class="card-icon" style="background:var(--tdim)">📨</div><div><div class="card-title">Outreach.io</div><div class="card-sub">Primary send — S2S OAuth</div></div></div>
+        <div class="sr"><span class="sr-l">Auth</span><span class="sr-v">OAuth 2.0 Server-to-Server</span></div>
+        <div class="sr"><span class="sr-l">Action</span><span class="sr-v">POST /prospects + sequence enroll</span></div>
+        <div class="sr"><span class="sr-l">Tracking</span><span class="sr-v g">Opens, clicks, replies — native</span></div>
+        <div class="sr"><span class="sr-l">Rate limit</span><span class="sr-v">25/day (ATLAS_DAILY_LIMIT)</span></div>
+        <div class="tags"><span class="tag r">S2S CREDS NEEDED</span><span class="tag dim">Amy Ketts</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><div class="card-icon" style="background:var(--pdim)">⚡</div><div><div class="card-title">Instantly V2</div><div class="card-sub">Fallback send channel</div></div></div>
+        <div class="sr"><span class="sr-l">Use</span><span class="sr-v">When Outreach unavailable</span></div>
+        <div class="sr"><span class="sr-l">Auth</span><span class="sr-v">API Key</span></div>
+        <div class="sr"><span class="sr-l">Feature</span><span class="sr-v">Inbox rotation, warmup included</span></div>
+        <div class="tags"><span class="tag o">KEY NEEDED</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><div class="card-icon" style="background:var(--rdim)">🔗</div><div><div class="card-title">Salesforce Log</div><div class="card-sub">Activity + contact record</div></div></div>
+        <div class="sr"><span class="sr-l">Creates</span><span class="sr-v">Lead + Task (email sent)</span></div>
+        <div class="sr"><span class="sr-l">Tags</span><span class="sr-v">ATLAS_SEND, Tier3, sequence_id</span></div>
+        <div class="sr"><span class="sr-l">Why</span><span class="sr-v r">Trust line — rep can see ATLAS touched it</span></div>
+        <div class="tags"><span class="tag r">SF CREDS NEEDED</span></div>
+      </div>
+    </div>
+    <div class="out"><strong>Outcome →</strong><span>Email in Jennifer's inbox at 9:15 AM. Enrolled in "ATLAS-OCL-FS-v1" Outreach sequence. Logged to Salesforce as Task. PHOENIX starts watching for open/click/reply.</span></div>
+  </div>
+</div>
+
+<div class="connector"><div class="conn-left"></div><div class="conn-right">every 30 min — CORTEX polls Outreach for replies → Claude Haiku classifies → rep alert or re-sequence</div></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 07 — REPLY TRIAGE
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">07</span>
+    <span class="pipe-name" style="color:var(--red)">REPLIES</span>
+    <span class="pipe-sub">Classification<br>+ rep handoff</span>
+  </div>
+  <div class="pipe-right">
+    <div class="sl r">Claude Haiku reads every reply — instant classification — warm replies reach rep in &lt;30min</div>
+    <div class="cards">
+      <div class="card lg">
+        <div class="card-top"><div class="card-icon" style="background:var(--gdim)">🧠</div><div><div class="card-title">Claude Haiku 4.5</div><div class="card-sub">Reply classification (fast + cheap)</div></div></div>
+        <div class="grid3" style="margin-top:4px">
+          <div class="sub-box" style="border-left:3px solid var(--green)">
+            <div class="sub-title" style="color:var(--green)">INTERESTED (+3)</div>
+            <div style="color:var(--muted)">Asks for more info, meeting, pricing. → Teams ping to rep immediately. PHOENIX reward: +3 pts to pattern.</div>
+          </div>
+          <div class="sub-box" style="border-left:3px solid var(--yellow)">
+            <div class="sub-title" style="color:var(--yellow)">REFERRAL (+2)</div>
+            <div style="color:var(--muted)">"Talk to Sarah in HR." → CORTEX creates new contact record for Sarah, starts fresh sequence to her.</div>
+          </div>
+          <div class="sub-box" style="border-left:3px solid var(--blue)">
+            <div class="sub-title" style="color:var(--blue)">NOT NOW (+0)</div>
+            <div style="color:var(--muted)">"Reach out in Q3." → Schedule follow-up touchpoint, no sequence change. No reward/penalty.</div>
+          </div>
+          <div class="sub-box" style="border-left:3px solid var(--orange)">
+            <div class="sub-title" style="color:var(--orange)">OBJECTION (-0.5)</div>
+            <div style="color:var(--muted)">"We have a vendor." → Route to objection-handling sequence. PHOENIX notes objection type for this pattern.</div>
+          </div>
+          <div class="sub-box" style="border-left:3px solid var(--purple)">
+            <div class="sub-title" style="color:var(--purple)">OUT OF OFFICE (+0)</div>
+            <div style="color:var(--muted)">Auto-detect OOO. Pause sequence until return date parsed from OOO message.</div>
+          </div>
+          <div class="sub-box" style="border-left:3px solid var(--red)">
+            <div class="sub-title" style="color:var(--red)">UNSUBSCRIBE (-1)</div>
+            <div style="color:var(--muted)">Immediate suppress in Salesforce + Outreach. PHOENIX notes: wrong title or angle for this pattern.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="out"><strong>Every reply outcome logged →</strong><code>reply_type</code><code>pattern_key</code><code>reward</code><span>→ PHOENIX learning engine</span></div>
+  </div>
+</div>
+
+<div class="connector"><div class="conn-left"></div><div class="conn-right">all outcomes (send, approval, rejection, reply, meeting) flow into PHOENIX for nightly learning update</div></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 08 — PHOENIX (SELF-LEARNING ENGINE) ← THE KEY DIFFERENTIATOR
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">08</span>
+    <span class="pipe-name" style="color:var(--lime)">PHOENIX</span>
+    <span class="pipe-sub">Self-learning<br>engine</span>
+  </div>
+  <div class="pipe-right">
+    <div class="sl l">What makes ATLAS impossible to copy — gets smarter every cycle, no competitor has this for FS compliance ICP</div>
+
+    <div class="learn-box">
+      <div class="learn-title">🔁 The Learning Loop — every event feeds back</div>
+      <div class="learn-row">
+        <div class="learn-icon">📧</div>
+        <div class="learn-text">Every <span class="learn-val">email generated</span> → stored as feature vector: <code>{pitch_angle, case_study, cta_variant, asset_bucket, inst_type, city_tier, enforcement_flag, hiring_signal, regulatory_trigger}</code></div>
+      </div>
+      <div class="learn-row">
+        <div class="learn-icon">✅</div>
+        <div class="learn-text">Nader <span class="learn-val">approves</span> → pattern_score += 0.1. Optional: "why good" reason → stored as few-shot example for FORGE.</div>
+      </div>
+      <div class="learn-row">
+        <div class="learn-icon">❌</div>
+        <div class="learn-text">Nader <span class="learn-val">rejects</span> → pattern_score -= 0.2. Reason captured (too generic / wrong angle / wrong case study / bad timing) → PHOENIX logs which feature caused rejection.</div>
+      </div>
+      <div class="learn-row">
+        <div class="learn-icon">↩️</div>
+        <div class="learn-text">Prospect <span class="learn-val">replies INTERESTED</span> → pattern_score += 0.3. Strongest signal — real buying intent. Features of this email are promoted.</div>
+      </div>
+      <div class="learn-row">
+        <div class="learn-icon">📅</div>
+        <div class="learn-text"><span class="learn-val">Meeting booked</span> → pattern_score += 0.5. Ultimate signal. CORTEX increases confidence gate for matching accounts from 0.60 to 0.85.</div>
+      </div>
+      <div class="learn-row">
+        <div class="learn-icon">🌙</div>
+        <div class="learn-text"><span class="learn-val">Nightly batch update</span> (11 PM): recalculate all win_rates by pattern. Update ANGLES weights, subject_preferences, case_study_fit_scores, CTA_A vs CTA_B performance by title type.</div>
+      </div>
+      <div class="learn-row">
+        <div class="learn-icon">🎓</div>
+        <div class="learn-text"><span class="learn-val">Confidence graduation</span>: when rolling 7-day approval_rate ≥ 85% for a pattern → CORTEX marks it auto-eligible. Emails with that pattern skip Teams review and send directly.</div>
+      </div>
+      <div class="learn-row">
+        <div class="learn-icon">📊</div>
+        <div class="learn-text"><span class="learn-val">Monthly report</span> (COMMAND): which angles work, which case studies resonate by geography, CTA win rates, best send day/time, top-performing subject hooks. Sent to Molly + Nader.</div>
+      </div>
+    </div>
+
+    <!-- What PHOENIX tracks -->
+    <div style="margin-top:12px;background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:14px 16px">
+      <div class="sl l" style="margin-bottom:10px">Win rate matrix — what PHOENIX learns per dimension</div>
+      <div class="grid4">
+        <div class="sub-box">
+          <div class="sub-title" style="color:var(--lime)">Pitch Angle</div>
+          <div style="color:var(--muted)">Which angle gets highest approval rate? (starts equal, diverges after 20+ sends per angle)</div>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" style="color:var(--lime)">Case Study Fit</div>
+          <div style="color:var(--muted)">Which proof point resonates per institution type? Citadel CU vs Security First vs MVB — by region + size</div>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" style="color:var(--lime)">CTA Variant</div>
+          <div style="color:var(--muted)">A vs B reply rate by title type. CCO might prefer B. CHRO might prefer A. PHOENIX finds it.</div>
+        </div>
+        <div class="sub-box">
+          <div class="sub-title" style="color:var(--lime)">Signal Combo</div>
+          <div style="color:var(--muted)">Hot regulatory trigger + hiring signal = 4x better? PHOENIX measures and weights signal combinations.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="out"><strong>PHOENIX output (nightly) →</strong><code>updated pitch_angle weights</code><code>updated confidence scores per pattern</code><code>auto-eligible pattern list</code><code>new few-shot examples for FORGE</code></div>
+  </div>
+</div>
+
+<div class="connector"><div class="conn-left"></div><div class="conn-right">COMMAND sends daily Teams digest at 6PM + VITALS re-engages stale 8-day leads</div></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     STAGE 09 — COMMAND + VITALS
+═══════════════════════════════════════════════════════ -->
+<div class="pipe-row">
+  <div class="pipe-left">
+    <span class="pipe-num">09</span>
+    <span class="pipe-name" style="color:var(--pink)">COMMAND</span>
+    <span class="pipe-sub">KPIs + digest<br>+ stale leads</span>
+  </div>
+  <div class="pipe-right">
+    <div class="sl pk">Closes the loop — daily summary, stale lead re-engagement, monthly PHOENIX report</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-top"><div class="card-icon" style="background:var(--pkdim)">📊</div><div><div class="card-title">COMMAND</div><div class="card-sub">atlas/agents/command.py</div></div></div>
+        <div class="sr"><span class="sr-l">6 PM daily</span><span class="sr-v">Teams digest — sent, opens, replies</span></div>
+        <div class="sr"><span class="sr-l">Weekly</span><span class="sr-v">7-day rolling metrics</span></div>
+        <div class="sr"><span class="sr-l">Monthly</span><span class="sr-v pk">PHOENIX learning report → Molly + Nader</span></div>
+      </div>
+      <div class="card">
+        <div class="card-top"><div class="card-icon" style="background:var(--ydim)">⏱️</div><div><div class="card-title">VITALS</div><div class="card-sub">atlas/agents/vitals.py</div></div></div>
+        <div class="sr"><span class="sr-l">Trigger</span><span class="sr-v o">Lead &gt; 8 days, zero activity</span></div>
+        <div class="sr"><span class="sr-l">Scope</span><span class="sr-v">Pre-opportunity leads ONLY</span></div>
+        <div class="sr"><span class="sr-l">Action</span><span class="sr-v">Re-enroll in follow-up touchpoint</span></div>
+        <div class="sr"><span class="sr-l">NOT</span><span class="sr-v r">stale opps — human handles those</span></div>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     FULL API TABLE
-═══════════════════════════════════════════════ -->
-<div style="margin-top:40px;padding-top:28px;border-top:1px solid var(--bdr)">
-  <div class="sec-label blue">All APIs — status at a glance</div>
-  <table class="api-table" style="margin-top:8px">
-    <tr><th>API</th><th>STAGE</th><th>PURPOSE</th><th>STATUS</th><th>WHO UNBLOCKS</th></tr>
-    <tr><td>FDIC BankFind</td><td>SCOUT</td><td>4,279 US bank universe, asset filter</td><td><span class="badge free">FREE/LIVE</span></td><td>—</td></tr>
-    <tr><td>NCUA Data</td><td>SCOUT</td><td>5,000+ credit union universe</td><td><span class="badge free">FREE/LIVE</span></td><td>—</td></tr>
-    <tr><td>Airtable</td><td>SCOUT / LOG</td><td>3,544 pre-loaded banks + outreach log</td><td><span class="badge live">LIVE</span></td><td>—</td></tr>
-    <tr><td>6sense</td><td>SCOUT</td><td>Intent scores, buying signals</td><td><span class="badge pending">KEY NEEDED</span></td><td>Nathan Paldrmann</td></tr>
-    <tr><td>Salesforce</td><td>SENTINEL</td><td>Dedup, exclusion, opportunity check</td><td><span class="badge blocked">CREDS NEEDED</span></td><td>Angel / James (SF admin)</td></tr>
-    <tr><td>Perplexity Sonar</td><td>RECON</td><td>Web research per account (&lt;60s)</td><td><span class="badge pending">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
-    <tr><td>SerpAPI</td><td>RECON</td><td>Job posting signals (compliance hiring)</td><td><span class="badge pending">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
-    <tr><td>Claude Sonnet 4.6</td><td>RECON + CORTEX</td><td>Brief synthesis + reply classification</td><td><span class="badge pending">KEY NEEDED</span></td><td>Sam (ANTHROPIC_API_KEY)</td></tr>
-    <tr><td>Waterfall.io</td><td>SEND</td><td>Contact enrichment (email + name)</td><td><span class="badge pending">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
-    <tr><td>ZeroBounce</td><td>SEND</td><td>Email validation before send</td><td><span class="badge pending">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
-    <tr><td>Outreach.io</td><td>SEND</td><td>Primary sequence enrollment + send</td><td><span class="badge blocked">S2S CREDS NEEDED</span></td><td>Amy Ketts (Outreach admin)</td></tr>
-    <tr><td>Instantly V2</td><td>SEND (fallback)</td><td>Cold volume send if Outreach unavailable</td><td><span class="badge pending">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
-    <tr><td>Microsoft Teams</td><td>REVIEW + ALERTS</td><td>Batch review card + reply alerts</td><td><span class="badge blocked">WEBHOOK NEEDED</span></td><td>Nathan Paldrmann</td></tr>
-    <tr><td>Supabase</td><td>STORAGE</td><td>Queue persistence + metrics store</td><td><span class="badge pending">URL NEEDED</span></td><td>Nader Rustom</td></tr>
+<!-- ═══════════════════════════════════════════════════════
+     DAILY SCHEDULE
+═══════════════════════════════════════════════════════ -->
+<div style="margin-top:40px;padding-top:32px;border-top:1px solid var(--bdr)">
+  <div class="sl g">Daily agent schedule — Railway cron, Eastern Time</div>
+  <div class="schedule">
+    <div class="sched-box"><div class="sched-time" style="color:var(--blue)">6:00 AM</div><div class="sched-desc">SCOUT pulls signals — 6sense intent + FDIC + Federal Register regulatory triggers</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--orange)">6:05 AM</div><div class="sched-desc">SENTINEL runs dedup + all 8 exclusion gates against Salesforce + Outreach</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--purple)">6:10 AM</div><div class="sched-desc">RECON fires parallel research (Perplexity + SerpAPI + FDIC enforcement) → Claude synthesis</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--cyan)">6:25 AM</div><div class="sched-desc">Contact discovery waterfall — Waterfall → Apollo → Hunter → ZeroBounce validate</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--green)">6:35 AM</div><div class="sched-desc">FORGE generates personalized emails. VITALS checks for 8-day stale leads.</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--yellow)">9:00 AM</div><div class="sched-desc">Teams card to Nader — review queue. High-confidence patterns auto-queued for 9:15.</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--teal)">9:15 AM</div><div class="sched-desc">FORGE executes — approved sends enroll in Outreach sequence. Logged to Salesforce.</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--red)">Every 30m</div><div class="sched-desc">CORTEX polls for replies → Haiku classifies → INTERESTED alert to rep via Teams</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--pink)">6:00 PM</div><div class="sched-desc">COMMAND sends daily digest — sent, opens, replies, meetings, top-performing angle</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--lime)">11:00 PM</div><div class="sched-desc">PHOENIX nightly learning update — win rates, confidence scores, auto-eligible patterns</div></div>
+    <div class="sched-box"><div class="sched-time" style="color:var(--lime)">Monthly</div><div class="sched-desc">PHOENIX full report — which angles/case studies/signals are working. Sent to Molly + Nader.</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     ALL APIs
+═══════════════════════════════════════════════════════ -->
+<div style="margin-top:40px;padding-top:32px;border-top:1px solid var(--bdr)">
+  <div class="sl b">Full API reference — 18 integrations</div>
+  <table style="margin-top:10px">
+    <tr><th>API / Service</th><th>Stage</th><th>Purpose</th><th>Cost</th><th>Status</th><th>Unblocked by</th></tr>
+    <tr><td>Federal Register RSS</td><td>SIGNALS</td><td>OCC/FDIC/NCUA regulatory triggers</td><td>Free</td><td><span class="badge free">FREE</span></td><td>—</td></tr>
+    <tr><td>FDIC BankFind</td><td>SIGNALS</td><td>4,279 US bank universe, asset filter</td><td>Free</td><td><span class="badge free">FREE</span></td><td>—</td></tr>
+    <tr><td>FDIC Enforcement Actions</td><td>SIGNALS + RECON</td><td>Consent orders = mandatory compliance fix signal</td><td>Free</td><td><span class="badge free">FREE</span></td><td>—</td></tr>
+    <tr><td>NCUA Data</td><td>SIGNALS</td><td>5,000+ credit union universe</td><td>Free</td><td><span class="badge free">FREE</span></td><td>—</td></tr>
+    <tr><td>Airtable (Agent Molly)</td><td>SIGNALS + LOG</td><td>3,544 pre-loaded banks + outreach log</td><td>Existing</td><td><span class="badge live">LIVE</span></td><td>—</td></tr>
+    <tr><td>6sense</td><td>SIGNALS</td><td>Predictive intent score 0-100, buying signals</td><td>~$2K/mo</td><td><span class="badge need">KEY NEEDED</span></td><td>Nathan Paldrmann</td></tr>
+    <tr><td>Salesforce</td><td>SENTINEL + LOG</td><td>Dedup, exclusion check, activity log, trust line</td><td>Existing</td><td><span class="badge blocked">CREDS NEEDED</span></td><td>Angel / James (SF admin)</td></tr>
+    <tr><td>Perplexity Sonar</td><td>RECON</td><td>Web research per account — M&amp;A, news, growth signals</td><td>Pay/call ~$5/mo</td><td><span class="badge need">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
+    <tr><td>SerpAPI</td><td>RECON + SIGNALS</td><td>Job posting intel — compliance hiring = live pain point</td><td>$50/mo</td><td><span class="badge need">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
+    <tr><td>Claude Sonnet 4.6</td><td>RECON + CORTEX</td><td>Research brief synthesis + high-confidence email refinement</td><td>Pay/call ~$10/mo</td><td><span class="badge need">KEY NEEDED</span></td><td>Sam — ANTHROPIC_API_KEY</td></tr>
+    <tr><td>Claude Haiku 4.5</td><td>REPLIES</td><td>Reply classification (6 types) — fast + cheap</td><td>~$1/mo</td><td><span class="badge need">KEY NEEDED</span></td><td>Sam — ANTHROPIC_API_KEY</td></tr>
+    <tr><td>Waterfall.io</td><td>CONTACTS</td><td>Primary contact enrichment — name + email from domain + title</td><td>~$0.05/contact</td><td><span class="badge need">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
+    <tr><td>Apollo.io</td><td>CONTACTS</td><td>Contact fallback 1 — 275M+ database</td><td>$49/mo</td><td><span class="badge need">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
+    <tr><td>Hunter.io</td><td>CONTACTS</td><td>Contact fallback 2 — domain email pattern finder</td><td>$49/mo</td><td><span class="badge need">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
+    <tr><td>ZeroBounce</td><td>CONTACTS</td><td>Email validation — valid/invalid/catch-all/risky</td><td>$16/mo</td><td><span class="badge need">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
+    <tr><td>Outreach.io</td><td>SEND</td><td>Primary sequence enrollment + send + native tracking</td><td>Existing</td><td><span class="badge blocked">S2S CREDS NEEDED</span></td><td>Amy Ketts (Outreach admin)</td></tr>
+    <tr><td>Instantly V2</td><td>SEND (fallback)</td><td>Cold volume fallback, inbox rotation, warmup</td><td>$37/mo</td><td><span class="badge need">KEY NEEDED</span></td><td>Sam to purchase</td></tr>
+    <tr><td>Microsoft Teams</td><td>REVIEW + ALERTS</td><td>Nader review card + rep reply alerts + daily digest</td><td>Existing</td><td><span class="badge blocked">WEBHOOK NEEDED</span></td><td>Nathan Paldrmann</td></tr>
+    <tr><td>Supabase</td><td>PHOENIX + STORE</td><td>Persistent queue + win rate matrix + confidence scores</td><td>Free tier</td><td><span class="badge need">URL NEEDED</span></td><td>Nader Rustom</td></tr>
   </table>
 </div>
 
-<!-- ═══════════════════════════════════════════════
-     DAILY SCHEDULE
-═══════════════════════════════════════════════ -->
-<div style="margin-top:32px;padding-top:28px;border-top:1px solid var(--bdr)">
-  <div class="sec-label green">Daily agent schedule (Railway cron — ET)</div>
-  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px;font-size:10px">
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px">
-      <div style="color:var(--blue);font-weight:800;font-size:13px;margin-bottom:4px">6:00 AM</div>
-      <div style="color:var(--muted)">SCOUT → SENTINEL → RECON → FORGE → VITALS</div>
-      <div style="color:var(--muted);margin-top:4px">Batch generated, sitting in review queue</div>
-    </div>
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px">
-      <div style="color:var(--yellow);font-weight:800;font-size:13px;margin-bottom:4px">9:00 AM</div>
-      <div style="color:var(--muted)">Teams card sent to Nader</div>
-      <div style="color:var(--muted);margin-top:4px">Human reviews + approves batch</div>
-    </div>
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px">
-      <div style="color:var(--green);font-weight:800;font-size:13px;margin-bottom:4px">9:15 AM</div>
-      <div style="color:var(--muted)">FORGE executes approved sends</div>
-      <div style="color:var(--muted);margin-top:4px">Outreach sequence enrollment</div>
-    </div>
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px">
-      <div style="color:var(--purple);font-weight:800;font-size:13px;margin-bottom:4px">Every 30m</div>
-      <div style="color:var(--muted)">CORTEX polls for replies</div>
-      <div style="color:var(--muted);margin-top:4px">Classifies → alerts rep if warm</div>
-    </div>
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px">
-      <div style="color:var(--pink);font-weight:800;font-size:13px;margin-bottom:4px">6:00 PM</div>
-      <div style="color:var(--muted)">COMMAND daily digest</div>
-      <div style="color:var(--muted);margin-top:4px">KPIs → Teams channel</div>
-    </div>
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:8px;padding:12px 14px">
-      <div style="color:var(--orange);font-weight:800;font-size:13px;margin-bottom:4px">Continuous</div>
-      <div style="color:var(--muted)">VITALS watches for 8-day stale leads</div>
-      <div style="color:var(--muted);margin-top:4px">Re-enroll if no activity</div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════════════
      FINANCIAL MODEL
-═══════════════════════════════════════════════ -->
-<div style="margin-top:32px;padding-top:28px;border-top:1px solid var(--bdr)">
-  <div class="sec-label green">Financial model — conservative</div>
-  <div class="fin-grid" style="margin-top:10px">
-    <div class="fin-cell"><div class="fin-num">160</div><div class="fin-label">accounts/month</div></div>
-    <div class="fin-cell" style="display:flex;align-items:center;justify-content:center;background:none;border:none"><div style="font-size:24px;color:var(--bdr)">→</div></div>
-    <div class="fin-cell"><div class="fin-num">3%</div><div class="fin-label">reply rate → 5 warm replies</div></div>
-    <div class="fin-cell" style="display:flex;align-items:center;justify-content:center;background:none;border:none"><div style="font-size:24px;color:var(--bdr)">→</div></div>
-    <div class="fin-cell"><div class="fin-num">4.5</div><div class="fin-label">opportunities/month</div></div>
-    <div class="fin-cell"><div class="fin-num">25%</div><div class="fin-label">close rate</div></div>
-    <div class="fin-cell" style="display:flex;align-items:center;justify-content:center;background:none;border:none"><div style="font-size:24px;color:var(--bdr)">→</div></div>
-    <div class="fin-cell"><div class="fin-num">$75K</div><div class="fin-label">avg deal size</div></div>
-    <div class="fin-cell" style="display:flex;align-items:center;justify-content:center;background:none;border:none"><div style="font-size:24px;color:var(--bdr)">→</div></div>
-    <div class="fin-cell" style="border-color:var(--green)"><div class="fin-num" style="font-size:28px">$1.35M</div><div class="fin-label">annual incremental (conservative). 2 deals = break-even.</div></div>
+═══════════════════════════════════════════════════════ -->
+<div style="margin-top:40px;padding-top:32px;border-top:1px solid var(--bdr)">
+  <div class="sl g">Financial model — conservative baseline. PHOENIX improves all numbers over time.</div>
+  <div class="fin">
+    <div class="fin-box"><div class="fin-num">160</div><div class="fin-label">net-new accounts/month from Tier 3 (never touched)</div></div>
+    <div class="fin-arr">→</div>
+    <div class="fin-box"><div class="fin-num">3%</div><div class="fin-label">reply rate → ~5 warm replies/month (improves with PHOENIX)</div></div>
+    <div class="fin-arr">→</div>
+    <div class="fin-box"><div class="fin-num">$75K</div><div class="fin-label">avg deal size × 25% close rate = $1.35M annual</div></div>
+    <div class="fin-box" style="border-color:var(--green)40"><div class="fin-num" style="font-size:30px">$1.35M</div><div class="fin-label">annual incremental revenue — conservative. Scales to $2.2M at optimistic close. Break-even: 2 deals.</div></div>
   </div>
-  <div style="margin-top:10px;font-size:10px;color:var(--muted)">Infrastructure cost: ~$50–$158/month. ROI: 570x–2,375x. Scales to $2.2M at optimistic close rate.</div>
+  <div style="margin-top:10px;font-size:10px;color:var(--muted)">Infrastructure: $50–$158/month API costs + Railway hosting. ROI: 570x–2,375x. PHOENIX goal: push reply rate from 3% → 6% by Month 3.</div>
 </div>
 
-</div><!-- end pipeline-wrap -->
+</div><!-- .wrap -->
 </body>
 </html>
